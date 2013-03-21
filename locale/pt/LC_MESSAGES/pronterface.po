@@ -1,14 +1,14 @@
 # Pronterface Message Catalog Portuguese
 # Copyright (C) 2013 Rafael Moretti
-# Rafael Moretti <rafael.moretti@gmail.com>, 2013.
+# Rafael Moretti <rmoretti@metamaquina.com.br>, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Printrun\n"
 "POT-Creation-Date: 2012-08-08 10:09+CEST\n"
 "PO-Revision-Date: 2013-03-21 00:13-0300\n"
-"Last-Translator: Rafael Moretti <rafael.moretti@gmail.com>\n"
-"Language-Team: Metamáquina <rmoretti@metamaquina.com.br>\n"
+"Last-Translator: Rafael Moretti <rmoretti@metamaquina.com.br>\n"
+"Language-Team: Metamáquina <desenvolvimento@metamaquina.com.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
