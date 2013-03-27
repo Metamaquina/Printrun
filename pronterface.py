@@ -444,6 +444,11 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         self.Bind(wx.EVT_MENU, lambda *e:options(self), m.Append(-1, _("&Options"), _(" Options dialog")))
 
         self.Bind(wx.EVT_MENU, lambda x: threading.Thread(target = lambda:self.do_skein("set")).start(), m.Append(-1, _("Slicing Settings"), _(" Adjust slicing settings")))
+	
+	mItem = m.AppendCheckItem(-1, _("Monitor mode"),
+            _(" Toggle monitor mode"))
+        m.Check(mItem.GetId(), self.p.loud)
+        self.Bind(wx.EVT_MENU, self.setmonitor2, mItem)
 
         mItem = m.AppendCheckItem(-1, _("Debug G-code"),
             _("Print all G-code sent to and received from the printer."))
@@ -1022,8 +1027,16 @@ class PronterWindow(MainWindow, pronsole.pronsole):
             if self.webInterface:
                 self.webInterface.AddLog("Done monitoring.")
 
+    # TODO: can be deleted?
     def setmonitor(self, e):
         self.monitor = self.monitorbox.GetValue()
+        if self.monitor:
+            wx.CallAfter(self.graph.StartPlotting, 1000)
+        else:
+            wx.CallAfter(self.graph.StopPlotting)
+
+    def setmonitor2(self, e):
+        self.monitor = e.IsChecked()
         if self.monitor:
             wx.CallAfter(self.graph.StartPlotting, 1000)
         else:

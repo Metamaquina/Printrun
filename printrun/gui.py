@@ -82,10 +82,12 @@ class LeftPane(wx.GridBagSizer):
         root.zfeedc.SetToolTip(wx.ToolTip("Set Maximum Speed for Z axis (mm/min)"))
         llts.Add(root.zfeedc,)
 
-        root.monitorbox = wx.CheckBox(root.panel,-1, _("Watch"))
-        root.monitorbox.SetToolTip(wx.ToolTip("Monitor Temperatures in Graph"))
-        self.Add(root.monitorbox, pos = (2, 6))
-        root.monitorbox.Bind(wx.EVT_CHECKBOX, root.setmonitor)
+	#TODO: delete/refactor this
+        #root.monitorbox = wx.CheckBox(root.panel,-1, _("Watch"))
+        #root.monitorbox.SetToolTip(wx.ToolTip("Monitor Temperatures in Graph"))
+        #self.Add(root.monitorbox, pos = (2, 6))
+        #root.monitorbox.Bind(wx.EVT_CHECKBOX, root.setmonitor)
+	
 
         self.Add(wx.StaticText(root.panel,-1, _("Heat:")), pos = (2, 0), span = (1, 1), flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
         htemp_choices = [root.temps[i]+" ("+i+")" for i in sorted(root.temps.keys(), key = lambda x:root.temps[x])]
