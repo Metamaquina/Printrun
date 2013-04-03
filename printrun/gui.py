@@ -125,7 +125,7 @@ class LeftPane(wx.GridBagSizer):
 
         root.setbbtn = make_button(root.panel, _("Set"), root.do_bedtemp, ("Switch Heated Bed On"), size = (38, -1), style = wx.BU_EXACTFIT)
         root.printerControls.append(root.setbbtn)
-        self.Add(root.setbbtn, pos = (3, 4), span = (1, 1))
+        self.Add(root.setbbtn, pos = (3, 4), span = (1, 1)) # button: set bed
 
         root.btemp.SetValue(str(root.settings.last_bed_temperature))
         root.htemp.SetValue(str(root.settings.last_temperature))
@@ -167,8 +167,8 @@ class LeftPane(wx.GridBagSizer):
         root.zfeedc.SetForegroundColour("black")
 
         root.graph = Graph(root.panel, wx.ID_ANY)
-        self.Add(root.graph, pos = (3, 5), span = (3, 3))
-        self.Add(root.tempdisp, pos = (6, 0), span = (1, 9))
+        self.Add(root.graph, pos = (6, 0), span = (1, 9))  # graph position
+        self.Add(root.tempdisp, pos = (7, 0), span = (1, 9))
 
 class VizPane(wx.BoxSizer):
 
