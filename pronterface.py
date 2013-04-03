@@ -446,15 +446,15 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         self.Bind(wx.EVT_MENU, self.new_macro, self.macros_menu.Append(-1, _("<&New...>")))
         self.Bind(wx.EVT_MENU, lambda *e:options(self), m.Append(-1, _("&Options"), _(" Options dialog")))
 
-        self.Bind(wx.EVT_MENU, lambda x: threading.Thread(target = lambda:self.do_skein("set")).start(), m.Append(-1, _("Slicing Settings"), _(" Adjust slicing settings")))
+        self.Bind(wx.EVT_MENU, lambda x: threading.Thread(target = lambda:self.do_skein("set")).start(), m.Append(-1, _("Slicing"), _(" Adjust slicing settings")))
 	
-	mItem = m.AppendCheckItem(-1, _("Monitor mode"),
-            _(" Toggle monitor mode"))
+	mItem = m.AppendCheckItem(-1, _("Monitor printer"),
+            _(" Toggle monitoring"))
         m.Check(mItem.GetId(), self.p.loud)
         self.Bind(wx.EVT_MENU, self.setmonitor2, mItem)
 
         mItem = m.AppendCheckItem(-1, _("Debug G-code"),
-            _("Print all G-code sent to and received from the printer."))
+            _(" Print all G-code sent to and received from the printer"))
         m.Check(mItem.GetId(), self.p.loud)
         self.Bind(wx.EVT_MENU, self.setloud, mItem)
 
