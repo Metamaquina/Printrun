@@ -1031,12 +1031,12 @@ class PronterWindow(MainWindow, pronsole.pronsole):
                 self.webInterface.AddLog("Done monitoring.")
 
     # TODO: can be deleted?
-    def setmonitor(self, e):
-        self.monitor = self.monitorbox.GetValue()
-        if self.monitor:
-            wx.CallAfter(self.graph.StartPlotting, 1000)
-        else:
-            wx.CallAfter(self.graph.StopPlotting)
+    #def setmonitor(self, e):
+    #    self.monitor = self.monitorbox.GetValue()
+    #    if self.monitor:
+    #        wx.CallAfter(self.graph.StartPlotting, 1000)
+    #    else:
+    #        wx.CallAfter(self.graph.StopPlotting)
 
     def setmonitor2(self, e):
         self.monitor = e.IsChecked()
