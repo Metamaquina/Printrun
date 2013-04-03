@@ -124,7 +124,10 @@ class PronterWindow(MainWindow, pronsole.pronsole):
             SpecialButton(_("Extrude"), ("extrude"), (225, 200, 200), (4, 0), (1, 2), _("Advance extruder by set length")),
             SpecialButton(_("Reverse"), ("reverse"), (225, 200, 200), (5, 0), (1, 2), _("Reverse extruder by set length")),
         ]
-        self.custombuttons = []
+        self.custombuttons = [
+            SpecialButton(_("Go to Z=0"), ("G1 Z0"), "blue", None, None, _("Move to Z=0"), custom=True),
+            SpecialButton(_("Set Z=0"), ("G92 Z"), "yellow", None, None, _("Set current position as Z=0"), custom=True),
+        ]
         self.btndict = {}
         self.parse_cmdline(sys.argv[1:])
         self.build_dimensions_list = self.get_build_dimensions(self.settings.build_dimensions)
