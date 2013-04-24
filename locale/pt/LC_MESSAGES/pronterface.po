@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Printrun\n"
 "POT-Creation-Date: 2012-08-08 10:09+CEST\n"
-"PO-Revision-Date: 2013-03-21 00:13-0300\n"
-"Last-Translator: Rafael Moretti <rmoretti@metamaquina.com.br>\n"
+"PO-Revision-Date: 2013-04-24 11:19-0300\n"
+"Last-Translator: Rafael H. de L. Moretti <rafael.moretti@gmail.com>\n"
 "Language-Team: Metamáquina <desenvolvimento@metamaquina.com.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -117,9 +117,8 @@ msgid "Switch all motors off"
 msgstr "Desligar todos os motores"
 
 #: pronterface.py:123
-#, fuzzy
 msgid "Check current hotend temperature"
-msgstr "Checar temperatura atual do hotend"
+msgstr "Checar temperatura atual do bico"
 
 #: pronterface.py:123
 msgid "Check temp"
@@ -305,7 +304,6 @@ msgid "Ok"
 msgstr "Ok"
 
 #: pronterface.py:495
-#, fuzzy
 msgid "Macro name may contain only ASCII alphanumeric symbols and underscores"
 msgstr "O nome da macro deve conter apenas símbolos alfanuméricos ASCII"
 
@@ -331,7 +329,6 @@ msgid "Load file"
 msgstr "Carregar arquivo"
 
 #: pronterface.py:593
-#, fuzzy
 msgid "Compose"
 msgstr "Compor"
 
@@ -350,7 +347,6 @@ msgid "Pause"
 msgstr "Pausar"
 
 #: pronterface.py:612
-#, fuzzy
 msgid "Recover"
 msgstr "Recuperar"
 
@@ -371,9 +367,8 @@ msgid "Watch"
 msgstr "Monitorar"
 
 #: pronterface.py:683
-#, fuzzy
 msgid "Heat:"
-msgstr "Aquec:"
+msgstr "Bico:"
 
 #: pronterface.py:686
 #: pronterface.py:709
@@ -382,7 +377,6 @@ msgstr "Desligar"
 
 #: pronterface.py:700
 #: pronterface.py:723
-#, fuzzy
 msgid "Set"
 msgstr "Definir"
 
@@ -434,9 +428,8 @@ msgid "click to add new custom button"
 msgstr "Adicionar botão personalizado"
 
 #: pronterface.py:979
-#, fuzzy
 msgid "Defines custom button. Usage: button <num> \"title\" [/c \"colour\"] command"
-msgstr "Define botão personalizado. Uso: button <num> \"título\" [/c \"cor\"] command"
+msgstr "Define botão personalizado. Uso: botão <num> \"título\" [/c \"cor\"] comando"
 
 #: pronterface.py:1003
 msgid "Custom button number should be between 0 and 63"
