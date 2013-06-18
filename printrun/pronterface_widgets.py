@@ -169,12 +169,13 @@ class WizardPageWithGCODE(wiz.WizardPageSimple):
     self.sizer = makePageTitle(self, title)
     instr = wx.StaticText(self, -1, instructions)
     instr.SetFont(wx.Font(12, wx.SWISS, wx.NORMAL, wx.BOLD))
+    instr.Wrap(400)
     self.sizer.AddWindow(instr, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
 
 class WizardBedLevel(WizardPageWithGCODE):
   def __init__(self, parent, moveCallback):
     self.move = moveCallback
-    WizardPageWithGCODE.__init__(self, parent, title="Adjusting bed level", instructions="In this step we'll calibrate the height of the heated bed.\nIf the printer is moving, please wait until it stops.\n\nThen use the 'up' and 'down' buttons below in order to make\n the extruder nozzle gently touch the heated bed surface.\nOnce you're finished, press 'next'.")
+    WizardPageWithGCODE.__init__(self, parent, title="Adjusting bed level", instructions="In this step we'll calibrate the height of the heated bed. If the printer is moving, please wait until it stops.\n\nThen use the 'up' and 'down' buttons below in order to make the extruder nozzle gently touch the heated bed surface.\n\nOnce you're finished, press 'next'.")
 
     self.zdown1 = wx.Button(self, id=-1, label='1mm Down')
     self.zdown1.Bind(wx.EVT_BUTTON, self.zdown1Click)
@@ -209,7 +210,7 @@ class WizardBedLevel(WizardPageWithGCODE):
 
 class WizardSaveCalibration(WizardPageWithGCODE):
   def __init__(self, parent):
-    WizardPageWithGCODE.__init__(self, parent, title="Success!", instructions="The printer has now saved the calibration to it's internal memory.\nThe printer will always restore this calibration setting from\n memory when it's turned on, so you don't need to repeat\n this process, unless the heated bed leveling is changed.")
+    WizardPageWithGCODE.__init__(self, parent, title="Success!", instructions="The printer has now saved the calibration to it's internal memory. The printer will always restore this calibration setting from memory when it's turned on, so you don't need to repeat this process, unless the heated bed leveling is changed.")
 
   def send_gcode(self, printer):
     printer.send_now("M251 S2")
