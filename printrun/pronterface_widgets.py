@@ -151,6 +151,87 @@ class options(wx.Dialog):
                     pronterface.set(k, str(ctrls[k, 1].GetValue()))
         self.Destroy()
 
+
+import wx.wizard as wiz
+
+def makePageTitle(wizPg, title):
+  sizer = wx.BoxSizer(wx.VERTICAL)
+  wizPg.SetSizer(sizer)
+  title = wx.StaticText(wizPg, -1, title)
+  title.SetFont(wx.Font(18, wx.SWISS, wx.NORMAL, wx.BOLD))
+  sizer.AddWindow(title, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
+  sizer.AddWindow(wx.StaticLine(wizPg, -1), 0, wx.EXPAND|wx.ALL, 5)
+  return sizer
+
+class WizardPageWithGCODE(wiz.WizardPageSimple):
+  def __init__(self, parent, title, instructions):
+    wiz.WizardPageSimple.__init__(self, parent)
+    self.sizer = makePageTitle(self, title)
+    instr = wx.StaticText(self, -1, instructions)
+    instr.SetFont(wx.Font(12, wx.SWISS, wx.NORMAL, wx.BOLD))
+    self.sizer.AddWindow(instr, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
+
+class WizardBedLevel(WizardPageWithGCODE):
+  def __init__(self, parent, moveCallback):
+    self.move = moveCallback
+    WizardPageWithGCODE.__init__(self, parent, title="Adjusting bed level", instructions="In this step we'll calibrate the height of the heated bed.\nIf the printer is moving, please wait until it stops.\n\nThen use the 'up' and 'down' buttons below in order to make\n the extruder nozzle gently touch the heated bed surface.\nOnce you're finished, press 'next'.")
+
+    self.zdown1 = wx.Button(self, id=-1, label='1mm Down')
+    self.zdown1.Bind(wx.EVT_BUTTON, self.zdown1Click)
+    self.zdown01 = wx.Button(self, id=-1, label='0.1mm Down')
+    self.zdown01.Bind(wx.EVT_BUTTON, self.zdown01Click)
+    self.zup1 = wx.Button(self, id=-1, label='1mm Up')
+    self.zup1.Bind(wx.EVT_BUTTON, self.zup1Click)
+    self.zup01 = wx.Button(self, id=-1, label='0.1mm Up')
+    self.zup01.Bind(wx.EVT_BUTTON, self.zup01Click)
+# optional tooltip
+#    self.zdown1.SetToolTip(wx.ToolTip("click to hide"))
+
+    self.sizer.Add(self.zup1)
+    self.sizer.Add(self.zup01)
+    self.sizer.Add(self.zdown01)
+    self.sizer.Add(self.zdown1)
+
+  def send_gcode(self, printer):
+    printer.send_now("G1 X100 Y100 Z5 F3000")
+
+  def zdown1Click(self, event):
+    self.move(-1)
+
+  def zdown01Click(self, event):
+    self.move(-0.1)
+
+  def zup1Click(self, event):
+    self.move(1)
+
+  def zup01Click(self, event):
+    self.move(0.1)
+
+class WizardSaveCalibration(WizardPageWithGCODE):
+  def __init__(self, parent):
+    WizardPageWithGCODE.__init__(self, parent, title="Success!", instructions="The printer has now saved the calibration to it's internal memory.\nThe printer will always restore this calibration setting from\n memory when it's turned on, so you don't need to repeat\n this process, unless the heated bed leveling is changed.")
+
+  def send_gcode(self, printer):
+    printer.send_now("M251 S2")
+    printer.send_now("G92 X100 Y100 Z0")
+
+class zcalibration(wiz.Wizard):
+  """Z Axis calibration wizard"""
+
+  def __init__(self, pronterface):
+    self.pronterface = pronterface
+    wx.wizard.Wizard.__init__(self, None, -1, "Simple Wizard")
+    page1 = WizardBedLevel(self, self.pronterface.moveZ)
+    page2 = WizardSaveCalibration(self)
+    self.Bind(wx.wizard.EVT_WIZARD_PAGE_CHANGED,self.OnWizardPageChange)
+    wiz.WizardPageSimple_Chain(page1, page2)
+    self.FitToPage(page1)
+    self.RunWizard(page1)
+    self.Destroy()
+
+  def OnWizardPageChange(self, event):
+    self.GetCurrentPage().send_gcode(self.pronterface.p)
+
 class ButtonEdit(wx.Dialog):
     """Custom button edit dialog"""
     def __init__(self, pronterface):
