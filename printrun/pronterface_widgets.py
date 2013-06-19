@@ -218,6 +218,9 @@ class WizardSaveCalibration(WizardPageWithGCODE):
   def send_gcode(self, printer):
     printer.send_now("M251 S2")
     printer.send_now("G92 X100 Y100 Z0")
+    printer.send_now("G1 Z5 F3000")
+    printer.send_now("G1 X0 Y0")
+    printer.send_now("G1 Z0")
 
 class zcalibration(wiz.Wizard):
   """Z Axis calibration wizard"""
