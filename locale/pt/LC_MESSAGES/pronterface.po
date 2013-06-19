@@ -54,6 +54,14 @@ msgstr "Comando"
 msgid "Color"
 msgstr "Cor"
 
+#: printrun/pronterface_widgets.py:178
+msgid "Adjusting bed level"
+msgstr "Ajuste de nível da plataforma de impressão"
+
+#: printrun/pronterface_widgets.py:178
+msgid "In this step we'll calibrate the height of the heated bed. If the printer is moving, please wait until it stops.\n\nThen use the 'up' and 'down' buttons below in order to make the extruder nozzle gently touch the heated bed surface.\n\nOnce you're finished, press 'next'."
+msgstr "In this step we'll calibrate the height of the heated bed. If the printer is moving, please wait until it stops.\n\nThen use the 'up' and 'down' buttons below in order to make the extruder nozzle gently touch the heated bed surface.\n\nOnce you're finished, press 'next'."
+
 #: pronterface.py:26
 msgid "WX is not installed. This program requires WX to run."
 msgstr "WX não está instalado. Este programa precisa do WX para funcionar."
