@@ -252,6 +252,9 @@ class MainToolbar(wx.BoxSizer):
         root.printbtn.Disable()
         root.pausebtn = make_sized_button(root.panel, _("Pause"), root.pause, _("Pause Current Print"), self)
         root.recoverbtn = make_sized_button(root.panel, _("Recover"), root.recover, _("Recover previous Print"), self)
+        root.testprintbtn = make_sized_button(root.panel, _("Print a test"), root.testprint, _("Print a test object to check the proper working of the 3d printer hardware"), self)
+        root.testprintbtn.Disable()
+
 
 class MainWindow(wx.Frame):
     

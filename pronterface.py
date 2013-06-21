@@ -218,6 +218,7 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         wx.CallAfter(self.xyb.enable)
         wx.CallAfter(self.zb.enable)
 
+        wx.CallAfter(self.testprintbtn.Enable)
         if self.filename:
             wx.CallAfter(self.printbtn.Enable)
 
@@ -1246,6 +1247,7 @@ class PronterWindow(MainWindow, pronsole.pronsole):
             of.close()
             if self.p.online:
                 wx.CallAfter(self.printbtn.Enable)
+                wx.CallAfter(self.testprintbtn.Enable)
 
             wx.CallAfter(self.status.SetStatusText, _("Loaded ")+self.filename+_(", %d lines") % (len(self.f),))
             wx.CallAfter(self.pausebtn.Disable)
@@ -1314,6 +1316,7 @@ class PronterWindow(MainWindow, pronsole.pronsole):
                 wx.CallAfter(self.recoverbtn.Disable)
                 if self.p.online:
                     wx.CallAfter(self.printbtn.Enable)
+                    wx.CallAfter(self.testprintbtn.Enable)
                 threading.Thread(target = self.loadviz).start()
 
     def loadviz(self):
@@ -1474,6 +1477,10 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         self.on_startprint()
         self.p.startprint(self.predisconnect_mainqueue, self.p.queueindex)
 
+    def testprint(self, event):
+        self.do_load("test_object.gcode")
+        self.printfile(None)
+
     def store_predisconnect_state(self):
         self.predisconnect_mainqueue = self.p.mainqueue
         self.predisconnect_queueindex = self.p.queueindex
@@ -1494,6 +1501,7 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         self.connectbtn.Bind(wx.EVT_BUTTON, self.connect)
 
         wx.CallAfter(self.printbtn.Disable)
+        wx.CallAfter(self.testprintbtn.Disable)
         wx.CallAfter(self.pausebtn.Disable)
         wx.CallAfter(self.recoverbtn.Disable)
         for i in self.printerControls:
