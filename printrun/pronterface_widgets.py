@@ -151,9 +151,6 @@ class options(wx.Dialog):
                     pronterface.set(k, str(ctrls[k, 1].GetValue()))
         self.Destroy()
 
-
-import wx.wizard as wiz
-
 def makePageTitle(wizPg, title):
   sizer = wx.BoxSizer(wx.VERTICAL)
   wizPg.SetSizer(sizer)
@@ -162,6 +159,91 @@ def makePageTitle(wizPg, title):
   sizer.AddWindow(title, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
   sizer.AddWindow(wx.StaticLine(wizPg, -1), 0, wx.EXPAND|wx.ALL, 5)
   return sizer
+
+from subprocess import call
+def invokeAVRDude(hex_image, port, baud=115200):
+  config = "/home/felipe/devel/arduino-1.0.3/hardware/tools/avrdude.conf"
+  avrdude = "/home/felipe/devel/arduino-1.0.3/hardware/tools/avrdude"
+  cmd = "%s -C%s -v -v -v -v -patmega2560 -cwiring -P%s -b%d -D -Uflash:w:%s:i" %(avrdude, config, port, baud, hex_image)
+  print "Gravando firmware: [%s]" % (cmd)
+  call(cmd, shell=True)
+
+from tempfile import mkstemp
+from webbrowser import open_new_tab
+from urlgrabber import urlopen, urlgrab
+from xml.dom.minidom import parse
+class firmwareupdate(wx.Dialog):
+  """Firmware Update Wizard"""
+  def __init__(self, pronterface):
+    self.pronterface = pronterface
+    wx.Dialog.__init__(self, None, title = _("Firmware Update"), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER)
+    title=_("Firmware Update")
+    instructions=_("Be sure to plug your 3d printer to the USB port before clicking 'install'.")
+    self.sizer = makePageTitle(self, title)
+    instr = wx.StaticText(self, -1, instructions)
+    instr.SetFont(wx.Font(12, wx.SWISS, wx.NORMAL, wx.BOLD))
+    instr.Wrap(400)
+    self.sizer.AddWindow(instr, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
+    self.images = []
+    self.sources = []
+    self.build_firmware_list()
+    if self.ShowModal() == wx.ID_OK:
+      pass
+
+    self.Destroy()
+
+  def install_fw(self, event):
+    print "downloading firmware image:"
+    image = self.images[event.GetId()]
+    print image
+
+    tmpfile_handle, hex_image_path = mkstemp()
+    urlgrab(str(image), filename=hex_image_path)
+
+    port = str(self.pronterface.serialport.GetValue())
+    baudrate = int(self.pronterface.baud.GetValue())
+    invokeAVRDude(hex_image_path, port, baudrate)
+    #TODO: delete tmpfile
+
+  def show_fw_source_code(self, event):
+    source = self.sources[event.GetId()]
+    open_new_tab(source)
+
+  def build_firmware_list(self):
+    updates_list_xml = urlopen("http://pub.metamaquina.com.br/firmware/updates.xml")
+    updates_list = parse(updates_list_xml)
+    i=0
+    for node in updates_list.getElementsByTagName('update'):
+      def getText(nodelist):
+          rc = []
+          for node in nodelist:
+              if node.nodeType == node.TEXT_NODE:
+                  rc.append(node.data)
+          return ''.join(rc)
+
+      title = getText(node.getElementsByTagName("title")[0].childNodes)
+      title_text = wx.StaticText(self, -1, title)
+      title_text.SetFont(wx.Font(8, wx.SWISS, wx.NORMAL, wx.BOLD))
+
+      source = getText(node.getElementsByTagName("source")[0].childNodes)
+      self.sources.append(source)
+      source_button = wx.Button(self, id=i, label=_("Source Code"))
+      source_button.Bind(wx.EVT_BUTTON, self.show_fw_source_code)
+
+      image = getText(node.getElementsByTagName("image")[0].childNodes)
+      self.images.append(image)
+      update_button = wx.Button(self, id=i, label=_("Install"))
+      update_button.Bind(wx.EVT_BUTTON, self.install_fw)
+      i+=1
+
+      hbox = wx.BoxSizer(wx.HORIZONTAL)
+      self.sizer.AddWindow(wx.StaticLine(self, -1), 0, wx.EXPAND|wx.ALL, 5)
+      self.sizer.AddWindow(title_text, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
+      hbox.AddWindow(source_button, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
+      hbox.AddWindow(update_button, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
+      self.sizer.AddWindow(hbox, 0 , wx.ALIGN_CENTRE|wx.ALL, 5)
+
+import wx.wizard as wiz
 
 class WizardPageWithGCODE(wiz.WizardPageSimple):
   def __init__(self, parent, title, instructions):
