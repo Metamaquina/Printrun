@@ -202,7 +202,10 @@ class firmwareupdate(wx.Dialog):
 
     port = str(self.pronterface.serialport.GetValue())
     baudrate = int(self.pronterface.baud.GetValue())
+
+    self.pronterface.disconnect(False)
     invokeAVRDude(hex_image_path, port, baudrate)
+    self.pronterface.connect(False)
     #TODO: delete tmpfile
 
   def show_fw_source_code(self, event):
