@@ -168,6 +168,7 @@ def invokeAVRDude(hex_image, port, baud=115200):
   print "Gravando firmware: [%s]" % (cmd)
   call(cmd, shell=True)
 
+from os import remove
 from tempfile import mkstemp
 from webbrowser import open_new_tab
 from urlgrabber import urlopen, urlgrab
@@ -205,8 +206,8 @@ class firmwareupdate(wx.Dialog):
 
     self.pronterface.disconnect(False)
     invokeAVRDude(hex_image_path, port, baudrate)
+    remove(hex_image_path)
     self.pronterface.connect(False)
-    #TODO: delete tmpfile
 
   def show_fw_source_code(self, event):
     source = self.sources[event.GetId()]
