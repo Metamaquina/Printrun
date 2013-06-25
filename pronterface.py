@@ -85,6 +85,7 @@ class Tee(object):
 class PronterWindow(MainWindow, pronsole.pronsole):
     def __init__(self, filename = None, size = winsize):
         pronsole.pronsole.__init__(self)
+        self.settings.firmware_update_url = "http://pub.metamaquina.com.br/firmware/updates.xml"
         self.settings.build_dimensions = '200x200x100+0+0+0' #default build dimensions are 200x200x100 with 0, 0, 0 in the corner of the bed
         self.settings.last_bed_temperature = 0.0
         self.settings.last_file_path = ""
@@ -93,6 +94,7 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         self.settings.preview_grid_step1 = 10.
         self.settings.preview_grid_step2 = 50.
         self.settings.bgcolor = "#FFFFFF"
+        self.helpdict["firmware_update_url"] = _("URL for fetching firmware updates")
         self.helpdict["build_dimensions"] = _("Dimensions of Build Platform\n & optional offset of origin\n\nExamples:\n   XXXxYYY\n   XXX,YYY,ZZZ\n   XXXxYYYxZZZ+OffX+OffY+OffZ")
         self.helpdict["last_bed_temperature"] = _("Last Set Temperature for the Heated Print Bed")
         self.helpdict["last_file_path"] = _("Folder of last opened file")

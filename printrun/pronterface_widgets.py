@@ -213,7 +213,7 @@ class firmwareupdate(wx.Dialog):
     open_new_tab(source)
 
   def build_firmware_list(self):
-    updates_list_xml = urlopen("http://pub.metamaquina.com.br/firmware/updates.xml")
+    updates_list_xml = urlopen(self.pronterface.settings.firmware_update_url)
     updates_list = parse(updates_list_xml)
     i=0
     for node in updates_list.getElementsByTagName('update'):
