@@ -211,7 +211,7 @@ class slicingsettings(wx.Dialog):
         pronterface.set("filament_profile", filament_profile.GetValue())
 
       if _platform == "win32" or _platform == "cygwin":
-        slicer_executable = "Slic3r/slic3r.exe"
+        slicer_executable = "Slic3r_windows/slic3r.exe"
       else:
         slicer_executable = "Slic3r/slic3r.pl"
 
