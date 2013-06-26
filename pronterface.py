@@ -190,6 +190,7 @@ class PronterWindow(MainWindow, pronsole.pronsole):
             self.do_load(self.filename)
 
         self.get_updates()
+        self.install_new_profiles()
         for msg in self.messages_to_the_user:
           if (msg["platform"]=="gnulinux" and (_platform == "linux" or _platform == "linux2")) or (msg["platform"]=="windows" and (_platform == "win32" or _platform == "cygwin")):
             MessageToUserDialog(msg)
@@ -1600,6 +1601,12 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         msg["text"] = getText(node.getElementsByTagName("text")[0].childNodes)
         msg["url"] = getText(node.getElementsByTagName("url")[0].childNodes)
         self.messages_to_the_user.append(msg)
+
+    def install_new_profiles(self):
+      #TODO: ask the user about it!
+      for profile in self.profile_update_list:
+        #TODO: copy files from our server to the user's profiles directory
+        pass
 
 if __name__ == '__main__':
     app = wx.App(False)
