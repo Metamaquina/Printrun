@@ -160,9 +160,18 @@ def makePageTitle(wizPg, title):
   sizer.AddWindow(wx.StaticLine(wizPg, -1), 0, wx.EXPAND|wx.ALL, 5)
   return sizer
 
+from os import listdir
+from os.path import isfile, join
 class slicingsettings(wx.Dialog):
   def __init__(self, pronterface):
     self.pronterface = pronterface
+    printer_path = "profiles/printer"
+    print_path = "profiles/print"
+    filament_path = "profiles/filament"
+    printer_choices = [ f.split(".")[0] for f in listdir(printer_path) if isfile(join(printer_path,f)) ]
+    resolution_choices = [ f.split(".")[0] for f in listdir(print_path) if isfile(join(print_path,f)) ]
+    filament_choices = [ f.split(".")[0] for f in listdir(filament_path) if isfile(join(filament_path,f)) ]
+
     wx.Dialog.__init__(self, None, title = _("Slice Settings"), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER)
 
     self.sizer = makePageTitle(self, _("Slicing Settings"))
@@ -173,17 +182,14 @@ class slicingsettings(wx.Dialog):
     grid.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
     self.sizer.Add(grid, 0, wx.EXPAND)
 
-    printer_choices = ["Metamaquina 2"]
     printer_profile = wx.ComboBox(self, -1, choices = printer_choices, value=self.pronterface.settings.printer_profile, style = wx.CB_DROPDOWN, size = (70,-1))
     grid.Add(wx.StaticText(self,-1, _("Printer:")), 0, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
     grid.Add(printer_profile, 1, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
 
-    resolution_choices = ["0.25mm", "0.15mm"]
     print_profile = wx.ComboBox(self, -1, choices = resolution_choices, value=self.pronterface.settings.print_profile, style = wx.CB_DROPDOWN, size = (70,-1))
     grid.Add(wx.StaticText(self,-1, _("Resolution:")), 0, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
     grid.Add(print_profile, 1, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
 
-    filament_choices = ["ABS", "PLA"]
     filament_profile = wx.ComboBox(self, -1, choices = filament_choices, value=self.pronterface.settings.filament_profile, style = wx.CB_DROPDOWN, size = (70,-1))
     grid.Add(wx.StaticText(self,-1, _("Filament:")), 0, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
     grid.Add(filament_profile, 1, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
@@ -202,6 +208,11 @@ class slicingsettings(wx.Dialog):
 
       if filament_profile.GetValue() != str(self.pronterface.settings.filament_profile):
         pronterface.set("filament_profile", filament_profile.GetValue())
+
+      #TODO: detect operating system
+      slicer_executable = "Slic3r/slic3r.pl"
+
+      pronterface.set("slicecommand", "%s --load %s/%s.ini --load %s/%s.ini --load %s/%s.ini $s" % (slicer_executable, printer_path, printer_profile.GetValue(), print_path, print_profile.GetValue(), filament_path, filament_profile.GetValue()))
 
     self.Destroy()
 
