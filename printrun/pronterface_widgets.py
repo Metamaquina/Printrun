@@ -15,6 +15,7 @@
 
 import wx
 import re
+from sys import platform as _platform
 
 class MacroEditor(wx.Dialog):
     """Really simple editor to edit macro definitions"""
@@ -209,8 +210,10 @@ class slicingsettings(wx.Dialog):
       if filament_profile.GetValue() != str(self.pronterface.settings.filament_profile):
         pronterface.set("filament_profile", filament_profile.GetValue())
 
-      #TODO: detect operating system
-      slicer_executable = "Slic3r/slic3r.pl"
+      if _platform == "win32" or _platform == "cygwin":
+        slicer_executable = "Slic3r/slic3r.exe"
+      else:
+        slicer_executable = "Slic3r/slic3r.pl"
 
       pronterface.set("slicecommand", "%s --load %s/%s.ini --load %s/%s.ini --load %s/%s.ini $s" % (slicer_executable, printer_path, printer_profile.GetValue(), print_path, print_profile.GetValue(), filament_path, filament_profile.GetValue()))
 
