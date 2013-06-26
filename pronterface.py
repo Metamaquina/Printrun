@@ -22,7 +22,7 @@ def check_version(msg):
 
   return msg["above"] < PRONTERFACE_VERSION and PRONTERFACE_VERSION < msg["below"]
 
-from urlgrabber import urlgrab, urlopen
+import urlgrabber
 import os, Queue, re
 
 from sys import platform as _platform
@@ -197,12 +197,15 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         if self.filename is not None:
             self.do_load(self.filename)
 
-        self.get_updates()
-        self.install_new_profiles()
+        try:
+          self.get_updates()
+          self.install_new_profiles()
 
-        for msg in self.messages_to_the_user:
-          if check_version(msg) and (msg["platform"]=="gnulinux" and (_platform == "linux" or _platform == "linux2")) or (msg["platform"]=="windows" and (_platform == "win32" or _platform == "cygwin")):
-            MessageToUserDialog(msg)
+          for msg in self.messages_to_the_user:
+            if check_version(msg) and (msg["platform"]=="gnulinux" and (_platform == "linux" or _platform == "linux2")) or (msg["platform"]=="windows" and (_platform == "win32" or _platform == "cygwin")):
+              MessageToUserDialog(msg)
+        except urlgrabber.grabber.URLGrabError:
+          print _("We're probably offline. We'll not look for updates this time. Please check your internet connection if you wish to receive software updates.")
 
     def startcb(self):
         self.starttime = time.time()
@@ -1578,7 +1581,7 @@ class PronterWindow(MainWindow, pronsole.pronsole):
       self.fw_update_list = []
       self.messages_to_the_user = []
 
-      updates_list_xml = urlopen(self.settings.updates_url, timeout=15)
+      updates_list_xml = urlgrabber.urlopen(self.settings.updates_url, timeout=5)
       updates_list = parse(updates_list_xml)
       def getText(nodelist):
           rc = []
@@ -1631,11 +1634,11 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         fname = profile["file"].split("/")[-1]
 
         if profile["type"]=="print":
-          urlgrab(str(profile["file"]), filename = "profiles/print/" + fname, timeout=15)
+          urlgrabber.urlgrab(str(profile["file"]), filename = "profiles/print/" + fname, timeout=15)
         elif profile["type"]=="printer":
-          urlgrab(str(profile["file"]), filename = "profiles/printer/" + fname, timeout=15)
+          urlgrabber.urlgrab(str(profile["file"]), filename = "profiles/printer/" + fname, timeout=15)
         elif profile["type"]=="filament":
-          urlgrab(str(profile["file"]), filename = "profiles/filament/" + fname, timeout=15)
+          urlgrabber.urlgrab(str(profile["file"]), filename = "profiles/filament/" + fname, timeout=15)
 
 if __name__ == '__main__':
     app = wx.App(False)

@@ -261,7 +261,7 @@ def invokeAVRDude(hex_image, port, baud=115200):
 from os import remove
 from tempfile import mkstemp
 from webbrowser import open_new_tab
-from urlgrabber import urlgrab
+import urlgrabber
 from xml.dom.minidom import parse
 class firmwareupdate(wx.Dialog):
   """Firmware Update Wizard"""
@@ -288,16 +288,19 @@ class firmwareupdate(wx.Dialog):
     image = self.images[event.GetId()]
     print image
 
-    tmpfile_handle, hex_image_path = mkstemp()
-    urlgrab(str(image), filename=hex_image_path, timeout=15)
+    try:
+      tmpfile_handle, hex_image_path = mkstemp()
+      urlgrabber.urlgrab(str(image), filename=hex_image_path, timeout=15)
 
-    port = str(self.pronterface.serialport.GetValue())
-    baudrate = int(self.pronterface.baud.GetValue())
+      port = str(self.pronterface.serialport.GetValue())
+      baudrate = int(self.pronterface.baud.GetValue())
 
-    self.pronterface.disconnect(False)
-    invokeAVRDude(hex_image_path, port, baudrate)
-    remove(hex_image_path)
-    self.pronterface.connect(False)
+      self.pronterface.disconnect(False)
+      invokeAVRDude(hex_image_path, port, baudrate)
+      remove(hex_image_path)
+      self.pronterface.connect(False)
+    except urlgrabber.grabber.URLGrabError:
+      print _("We're probably offline. We'll not look for updates this time. Please check your internet connection if you wish to receive software updates.")
 
   def show_fw_source_code(self, event):
     source = self.sources[event.GetId()]
