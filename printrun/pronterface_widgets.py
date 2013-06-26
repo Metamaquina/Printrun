@@ -160,6 +160,51 @@ def makePageTitle(wizPg, title):
   sizer.AddWindow(wx.StaticLine(wizPg, -1), 0, wx.EXPAND|wx.ALL, 5)
   return sizer
 
+class slicingsettings(wx.Dialog):
+  def __init__(self, pronterface):
+    self.pronterface = pronterface
+    wx.Dialog.__init__(self, None, title = _("Slice Settings"), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER)
+
+    self.sizer = makePageTitle(self, _("Slicing Settings"))
+
+    grid = wx.FlexGridSizer(rows = 3, cols = 2, hgap = 2, vgap = 2)
+    grid.SetFlexibleDirection( wx.BOTH )
+    grid.AddGrowableCol( 1 )
+    grid.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+    self.sizer.Add(grid, 0, wx.EXPAND)
+
+    printer_choices = ["Metamaquina 2"]
+    printer_profile = wx.ComboBox(self, -1, choices = printer_choices, value=self.pronterface.settings.printer_profile, style = wx.CB_DROPDOWN, size = (70,-1))
+    grid.Add(wx.StaticText(self,-1, _("Printer:")), 0, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
+    grid.Add(printer_profile, 1, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
+
+    resolution_choices = ["0.25mm", "0.15mm"]
+    print_profile = wx.ComboBox(self, -1, choices = resolution_choices, value=self.pronterface.settings.print_profile, style = wx.CB_DROPDOWN, size = (70,-1))
+    grid.Add(wx.StaticText(self,-1, _("Resolution:")), 0, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
+    grid.Add(print_profile, 1, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
+
+    filament_choices = ["ABS", "PLA"]
+    filament_profile = wx.ComboBox(self, -1, choices = filament_choices, value=self.pronterface.settings.filament_profile, style = wx.CB_DROPDOWN, size = (70,-1))
+    grid.Add(wx.StaticText(self,-1, _("Filament:")), 0, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
+    grid.Add(filament_profile, 1, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
+
+    self.sizer.Add(self.CreateSeparatedButtonSizer(wx.OK+wx.CANCEL), 0, wx.EXPAND)
+    self.SetSizer(self.sizer)
+    self.sizer.Layout()
+    self.sizer.Fit(self)
+
+    if self.ShowModal() == wx.ID_OK:
+      if print_profile.GetValue() != str(self.pronterface.settings.print_profile):
+        pronterface.set("print_profile", print_profile.GetValue())
+
+      if printer_profile.GetValue() != str(self.pronterface.settings.printer_profile):
+        pronterface.set("printer_profile", printer_profile.GetValue())
+
+      if filament_profile.GetValue() != str(self.pronterface.settings.filament_profile):
+        pronterface.set("filament_profile", filament_profile.GetValue())
+
+    self.Destroy()
+
 class MessageToUserDialog(wx.Dialog):
   """Display a remote message to our users"""
   def download(self, event):

@@ -152,6 +152,9 @@ class Settings:
         self.slicecommand = "python skeinforge/skeinforge_application/skeinforge_utilities/skeinforge_craft.py $s"
         self.sliceoptscommand = "python skeinforge/skeinforge_application/skeinforge.py"
         self.final_command = ""
+        self.print_profile = ""
+        self.printer_profile = ""
+        self.filament_profile = ""
 
     def _set(self, key, value):
         try:
@@ -1108,9 +1111,10 @@ class pronsole(cmd.Cmd):
         try:
             import shlex
             if(settings):
-                param = self.expandcommand(self.settings.sliceoptscommand).replace("\\", "\\\\").encode()
-                print "Entering slicer settings: ", param
-                subprocess.call(shlex.split(param))
+#                param = self.expandcommand(self.settings.sliceoptscommand).replace("\\", "\\\\").encode()
+#                print "Entering slicer settings: ", param
+#                subprocess.call(shlex.split(param))
+              SliceSettingsDialog()
             else:
                 param = self.expandcommand(self.settings.slicecommand).encode()
                 print "Slicing: ", param
