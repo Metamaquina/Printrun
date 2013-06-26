@@ -201,7 +201,6 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         self.install_new_profiles()
 
         for msg in self.messages_to_the_user:
-          print check_version(msg)
           if check_version(msg) and (msg["platform"]=="gnulinux" and (_platform == "linux" or _platform == "linux2")) or (msg["platform"]=="windows" and (_platform == "win32" or _platform == "cygwin")):
             MessageToUserDialog(msg)
 
