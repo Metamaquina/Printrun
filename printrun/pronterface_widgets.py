@@ -160,6 +160,37 @@ def makePageTitle(wizPg, title):
   sizer.AddWindow(wx.StaticLine(wizPg, -1), 0, wx.EXPAND|wx.ALL, 5)
   return sizer
 
+class MessageToUserDialog(wx.Dialog):
+  """Display a remote message to our users"""
+  def download(self, event):
+    open_new_tab(self.url)
+    self.Destroy()
+
+  def __init__(self, msg):
+    wx.Dialog.__init__(self, None, title = _("Message from Metamaquina"), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER)
+    title=msg["title"]
+    instructions=msg["text"]
+    self.sizer = makePageTitle(self, title)
+    instr = wx.StaticText(self, -1, instructions)
+    instr.SetFont(wx.Font(12, wx.SWISS, wx.NORMAL, wx.BOLD))
+    instr.Wrap(400)
+    self.sizer.AddWindow(instr, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
+
+    if "url" in msg.keys():
+      self.url = msg["url"]
+
+      if "urllabel" in msg.keys():
+        label = msg["urllabel"]
+      else:
+        label = "Download"
+
+      download_button = wx.Button(self, label=label)
+      download_button.Bind(wx.EVT_BUTTON, self.download)
+      self.sizer.AddWindow(download_button, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
+
+    self.ShowModal()
+    self.Destroy()
+
 from subprocess import call
 def invokeAVRDude(hex_image, port, baud=115200):
   config = "tools/avrdude.conf"
@@ -214,28 +245,16 @@ class firmwareupdate(wx.Dialog):
     open_new_tab(source)
 
   def build_firmware_list(self):
-    updates_list_xml = urlopen(self.pronterface.settings.firmware_update_url)
-    updates_list = parse(updates_list_xml)
     i=0
-    for node in updates_list.getElementsByTagName('update'):
-      def getText(nodelist):
-          rc = []
-          for node in nodelist:
-              if node.nodeType == node.TEXT_NODE:
-                  rc.append(node.data)
-          return ''.join(rc)
-
-      title = getText(node.getElementsByTagName("title")[0].childNodes)
-      title_text = wx.StaticText(self, -1, title)
+    for fw in self.pronterface.fw_update_list:
+      title_text = wx.StaticText(self, -1, fw["title"])
       title_text.SetFont(wx.Font(8, wx.SWISS, wx.NORMAL, wx.BOLD))
 
-      source = getText(node.getElementsByTagName("source")[0].childNodes)
-      self.sources.append(source)
+      self.sources.append(fw["source"])
       source_button = wx.Button(self, id=i, label=_("Source Code"))
       source_button.Bind(wx.EVT_BUTTON, self.show_fw_source_code)
 
-      image = getText(node.getElementsByTagName("image")[0].childNodes)
-      self.images.append(image)
+      self.images.append(fw["image"])
       update_button = wx.Button(self, id=i, label=_("Install"))
       update_button.Bind(wx.EVT_BUTTON, self.install_fw)
       i+=1

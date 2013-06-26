@@ -17,6 +17,7 @@
 
 import os, Queue, re
 
+from sys import platform as _platform
 from printrun.printrun_utils import install_locale
 install_locale('pronterface')
 
@@ -85,7 +86,7 @@ class Tee(object):
 class PronterWindow(MainWindow, pronsole.pronsole):
     def __init__(self, filename = None, size = winsize):
         pronsole.pronsole.__init__(self)
-        self.settings.firmware_update_url = "http://pub.metamaquina.com.br/firmware/updates.xml"
+        self.settings.updates_url = "http://pub.metamaquina.com.br/updates.xml"
         self.settings.build_dimensions = '200x200x100+0+0+0' #default build dimensions are 200x200x100 with 0, 0, 0 in the corner of the bed
         self.settings.last_bed_temperature = 0.0
         self.settings.last_file_path = ""
@@ -94,7 +95,7 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         self.settings.preview_grid_step1 = 10.
         self.settings.preview_grid_step2 = 50.
         self.settings.bgcolor = "#FFFFFF"
-        self.helpdict["firmware_update_url"] = _("URL for fetching firmware updates")
+        self.helpdict["updates_url"] = _("URL for fetching updates")
         self.helpdict["build_dimensions"] = _("Dimensions of Build Platform\n & optional offset of origin\n\nExamples:\n   XXXxYYY\n   XXX,YYY,ZZZ\n   XXXxYYYxZZZ+OffX+OffY+OffZ")
         self.helpdict["last_bed_temperature"] = _("Last Set Temperature for the Heated Print Bed")
         self.helpdict["last_file_path"] = _("Folder of last opened file")
@@ -187,6 +188,11 @@ class PronterWindow(MainWindow, pronsole.pronsole):
                 print _("CherryPy is not installed. Web Interface Disabled.")
         if self.filename is not None:
             self.do_load(self.filename)
+
+        self.get_updates()
+        for msg in self.messages_to_the_user:
+          if (msg["platform"]=="gnulinux" and (_platform == "linux" or _platform == "linux2")) or (msg["platform"]=="windows" and (_platform == "win32" or _platform == "cygwin")):
+            MessageToUserDialog(msg)
 
     def startcb(self):
         self.starttime = time.time()
@@ -1557,6 +1563,43 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         defaults = [200, 200, 100, 0, 0, 0]
         bdl_float = [float(value) if value else defaults[i] for i, value in enumerate(bdl)]
         return bdl_float
+
+    def get_updates(self):
+      self.profile_update_list = []
+      self.fw_update_list = []
+      self.messages_to_the_user = []
+
+      updates_list_xml = urlopen(self.settings.updates_url)
+      updates_list = parse(updates_list_xml)
+      def getText(nodelist):
+          rc = []
+          for node in nodelist:
+              if node.nodeType == node.TEXT_NODE:
+                  rc.append(node.data)
+          return ''.join(rc)
+
+      for node in updates_list.getElementsByTagName('firmware'):
+        fw = {}
+        fw["title"] = getText(node.getElementsByTagName("title")[0].childNodes)
+        fw["source"] = getText(node.getElementsByTagName("source")[0].childNodes)
+        fw["image"] = getText(node.getElementsByTagName("image")[0].childNodes)
+        self.fw_update_list.append(fw)
+
+      for node in updates_list.getElementsByTagName('profile'):
+        prof = {}
+        prof["title"] = getText(node.getElementsByTagName("title")[0].childNodes)
+        prof["description"] = getText(node.getElementsByTagName("description")[0].childNodes)
+        prof["type"] = getText(node.getElementsByTagName("type")[0].childNodes)
+        prof["file"] = getText(node.getElementsByTagName("file")[0].childNodes)
+        self.profile_update_list.append(prof)
+
+      for node in updates_list.getElementsByTagName('message'):
+        msg = {}
+        msg["platform"] = getText(node.getElementsByTagName("platform")[0].childNodes)
+        msg["title"] = getText(node.getElementsByTagName("title")[0].childNodes)
+        msg["text"] = getText(node.getElementsByTagName("text")[0].childNodes)
+        msg["url"] = getText(node.getElementsByTagName("url")[0].childNodes)
+        self.messages_to_the_user.append(msg)
 
 if __name__ == '__main__':
     app = wx.App(False)
