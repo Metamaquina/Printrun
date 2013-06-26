@@ -183,17 +183,17 @@ class slicingsettings(wx.Dialog):
     grid.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
     self.sizer.Add(grid, 0, wx.EXPAND)
 
-    printer_profile = wx.ComboBox(self, -1, choices = printer_choices, value=self.pronterface.settings.printer_profile, style = wx.CB_DROPDOWN, size = (70,-1))
+    printer_profile = wx.ComboBox(self, -1, choices = printer_choices, value=self.pronterface.settings.printer_profile, style = wx.CB_DROPDOWN, size = (120,-1))
     grid.Add(wx.StaticText(self,-1, _("Printer:")), 0, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
-    grid.Add(printer_profile, 1, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
+    grid.Add(printer_profile, 1, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_LEFT)
 
-    print_profile = wx.ComboBox(self, -1, choices = resolution_choices, value=self.pronterface.settings.print_profile, style = wx.CB_DROPDOWN, size = (70,-1))
+    print_profile = wx.ComboBox(self, -1, choices = resolution_choices, value=self.pronterface.settings.print_profile, style = wx.CB_DROPDOWN, size = (120,-1))
     grid.Add(wx.StaticText(self,-1, _("Resolution:")), 0, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
-    grid.Add(print_profile, 1, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
+    grid.Add(print_profile, 1, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_LEFT)
 
-    filament_profile = wx.ComboBox(self, -1, choices = filament_choices, value=self.pronterface.settings.filament_profile, style = wx.CB_DROPDOWN, size = (70,-1))
+    filament_profile = wx.ComboBox(self, -1, choices = filament_choices, value=self.pronterface.settings.filament_profile, style = wx.CB_DROPDOWN, size = (120,-1))
     grid.Add(wx.StaticText(self,-1, _("Filament:")), 0, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
-    grid.Add(filament_profile, 1, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
+    grid.Add(filament_profile, 1, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_LEFT)
 
     self.sizer.Add(self.CreateSeparatedButtonSizer(wx.OK+wx.CANCEL), 0, wx.EXPAND)
     self.SetSizer(self.sizer)
