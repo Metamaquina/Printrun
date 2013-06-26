@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Printrun.  If not, see <http://www.gnu.org/licenses/>.
 
+PRONTERFACE_VERSION = "20130626"
+
 from urlgrabber import urlgrab
 import os, Queue, re
 
@@ -193,7 +195,7 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         self.get_updates()
         self.install_new_profiles()
         for msg in self.messages_to_the_user:
-          if (msg["platform"]=="gnulinux" and (_platform == "linux" or _platform == "linux2")) or (msg["platform"]=="windows" and (_platform == "win32" or _platform == "cygwin")):
+          if (PRONTERFACE_VERSION < msg["olderthan"] and msg["platform"]=="gnulinux" and (_platform == "linux" or _platform == "linux2")) or (msg["platform"]=="windows" and (_platform == "win32" or _platform == "cygwin")):
             MessageToUserDialog(msg)
 
     def startcb(self):
@@ -1596,6 +1598,11 @@ class PronterWindow(MainWindow, pronsole.pronsole):
 
       for node in updates_list.getElementsByTagName('message'):
         msg = {}
+        if node.getElementsByTagName("olderthan"):
+          msg["olderthan"] = getText(node.getElementsByTagName("olderthan")[0].childNodes)
+        else:
+          msg["olderthan"] = PRONTERFACE_VERSION
+
         msg["platform"] = getText(node.getElementsByTagName("platform")[0].childNodes)
         msg["title"] = getText(node.getElementsByTagName("title")[0].childNodes)
         msg["text"] = getText(node.getElementsByTagName("text")[0].childNodes)
