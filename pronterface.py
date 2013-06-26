@@ -16,6 +16,11 @@
 # along with Printrun.  If not, see <http://www.gnu.org/licenses/>.
 
 PRONTERFACE_VERSION = "20130626"
+def check_version(msg):
+  if msg["equals"] != "":
+    return PRONTERFACE_VERSION == msg["equals"]
+
+  return msg["above"] < PRONTERFACE_VERSION and PRONTERFACE_VERSION < msg["below"]
 
 from urlgrabber import urlgrab
 import os, Queue, re
@@ -194,8 +199,10 @@ class PronterWindow(MainWindow, pronsole.pronsole):
 
         self.get_updates()
         self.install_new_profiles()
+
         for msg in self.messages_to_the_user:
-          if (PRONTERFACE_VERSION < msg["olderthan"] and msg["platform"]=="gnulinux" and (_platform == "linux" or _platform == "linux2")) or (msg["platform"]=="windows" and (_platform == "win32" or _platform == "cygwin")):
+          print check_version(msg)
+          if check_version(msg) and (msg["platform"]=="gnulinux" and (_platform == "linux" or _platform == "linux2")) or (msg["platform"]=="windows" and (_platform == "win32" or _platform == "cygwin")):
             MessageToUserDialog(msg)
 
     def startcb(self):
@@ -1598,10 +1605,20 @@ class PronterWindow(MainWindow, pronsole.pronsole):
 
       for node in updates_list.getElementsByTagName('message'):
         msg = {}
-        if node.getElementsByTagName("olderthan"):
-          msg["olderthan"] = getText(node.getElementsByTagName("olderthan")[0].childNodes)
+        if node.getElementsByTagName("below"):
+          msg["below"] = getText(node.getElementsByTagName("below")[0].childNodes)
         else:
-          msg["olderthan"] = PRONTERFACE_VERSION
+          msg["below"] = "99999999"
+
+        if node.getElementsByTagName("above"):
+          msg["above"] = getText(node.getElementsByTagName("above")[0].childNodes)
+        else:
+          msg["above"] = "00000000"
+
+        if node.getElementsByTagName("equals"):
+          msg["equals"] = getText(node.getElementsByTagName("equals")[0].childNodes)
+        else:
+          msg["equals"] = ""
 
         msg["platform"] = getText(node.getElementsByTagName("platform")[0].childNodes)
         msg["title"] = getText(node.getElementsByTagName("title")[0].childNodes)
