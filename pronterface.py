@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Printrun.  If not, see <http://www.gnu.org/licenses/>.
 
+from urlgrabber import urlgrab
 import os, Queue, re
 
 from sys import platform as _platform
@@ -1604,8 +1605,14 @@ class PronterWindow(MainWindow, pronsole.pronsole):
     def install_new_profiles(self):
       #TODO: ask the user about it!
       for profile in self.profile_update_list:
-        #TODO: copy files from our server to the user's profiles directory
-        pass
+        fname = profile["file"].split("/")[-1]
+
+        if profile["type"]=="print":
+          urlgrab(str(profile["file"]), filename = "profiles/print/" + fname)
+        elif profile["type"]=="printer":
+          urlgrab(str(profile["file"]), filename = "profiles/printer/" + fname)
+        elif profile["type"]=="filament":
+          urlgrab(str(profile["file"]), filename = "profiles/filament/" + fname)
 
 if __name__ == '__main__':
     app = wx.App(False)
