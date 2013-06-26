@@ -22,7 +22,7 @@ def check_version(msg):
 
   return msg["above"] < PRONTERFACE_VERSION and PRONTERFACE_VERSION < msg["below"]
 
-from urlgrabber import urlgrab
+from urlgrabber import urlgrab, urlopen
 import os, Queue, re
 
 from sys import platform as _platform
@@ -1579,7 +1579,7 @@ class PronterWindow(MainWindow, pronsole.pronsole):
       self.fw_update_list = []
       self.messages_to_the_user = []
 
-      updates_list_xml = urlopen(self.settings.updates_url)
+      updates_list_xml = urlopen(self.settings.updates_url, timeout=15)
       updates_list = parse(updates_list_xml)
       def getText(nodelist):
           rc = []
@@ -1632,11 +1632,11 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         fname = profile["file"].split("/")[-1]
 
         if profile["type"]=="print":
-          urlgrab(str(profile["file"]), filename = "profiles/print/" + fname)
+          urlgrab(str(profile["file"]), filename = "profiles/print/" + fname, timeout=15)
         elif profile["type"]=="printer":
-          urlgrab(str(profile["file"]), filename = "profiles/printer/" + fname)
+          urlgrab(str(profile["file"]), filename = "profiles/printer/" + fname, timeout=15)
         elif profile["type"]=="filament":
-          urlgrab(str(profile["file"]), filename = "profiles/filament/" + fname)
+          urlgrab(str(profile["file"]), filename = "profiles/filament/" + fname, timeout=15)
 
 if __name__ == '__main__':
     app = wx.App(False)

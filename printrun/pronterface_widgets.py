@@ -261,7 +261,7 @@ def invokeAVRDude(hex_image, port, baud=115200):
 from os import remove
 from tempfile import mkstemp
 from webbrowser import open_new_tab
-from urlgrabber import urlopen, urlgrab
+from urlgrabber import urlgrab
 from xml.dom.minidom import parse
 class firmwareupdate(wx.Dialog):
   """Firmware Update Wizard"""
@@ -289,7 +289,7 @@ class firmwareupdate(wx.Dialog):
     print image
 
     tmpfile_handle, hex_image_path = mkstemp()
-    urlgrab(str(image), filename=hex_image_path)
+    urlgrab(str(image), filename=hex_image_path, timeout=15)
 
     port = str(self.pronterface.serialport.GetValue())
     baudrate = int(self.pronterface.baud.GetValue())
