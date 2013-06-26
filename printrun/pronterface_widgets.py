@@ -215,7 +215,7 @@ class slicingsettings(wx.Dialog):
       else:
         slicer_executable = "Slic3r/slic3r.pl"
 
-      pronterface.set("slicecommand", "%s --load %s/%s.ini --load %s/%s.ini --load %s/%s.ini $s" % (slicer_executable, printer_path, printer_profile.GetValue(), print_path, print_profile.GetValue(), filament_path, filament_profile.GetValue()))
+      pronterface.set("slicecommand", "%s --load %s/%s.ini --load %s/%s.ini --load %s/%s.ini $s --output $o" % (slicer_executable, printer_path, printer_profile.GetValue(), print_path, print_profile.GetValue(), filament_path, filament_profile.GetValue()))
 
     self.Destroy()
 
