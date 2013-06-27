@@ -173,7 +173,7 @@ class slicingsettings(wx.Dialog):
     resolution_choices = [ f.split(".")[0] for f in listdir(print_path) if isfile(join(print_path,f)) ]
     filament_choices = [ f.split(".")[0] for f in listdir(filament_path) if isfile(join(filament_path,f)) ]
 
-    wx.Dialog.__init__(self, None, title = _("Slice Settings"), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER)
+    wx.Dialog.__init__(self, None, title = _("Slicing Settings"), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER)
 
     self.sizer = makePageTitle(self, _("Slicing Settings"))
 
@@ -284,7 +284,7 @@ class firmwareupdate(wx.Dialog):
     self.Destroy()
 
   def install_fw(self, event):
-    print "downloading firmware image:"
+    print _("downloading firmware image:")
     image = self.images[event.GetId()]
     print image
 

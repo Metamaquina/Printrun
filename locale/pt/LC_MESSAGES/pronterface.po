@@ -62,6 +62,18 @@ msgstr "Ajuste de nível da plataforma de impressão"
 msgid "In this step we'll calibrate the height of the heated bed. If the printer is moving, please wait until it stops.\n\nThen use the 'up' and 'down' buttons below in order to make the extruder nozzle gently touch the heated bed surface.\n\nOnce you're finished, press 'next'."
 msgstr "Nesse passo iremos calibrar a altura da plataforma de impressão. Se a impressora estiver se movendo, por favor aguarde até ela parar.\n\nDepois use os botões abaixo para fazer a ponta do bico extrusor tocar levemente a superfície da plataforma de impressão.\n\nQuando você terminar, pressione o botão 'próximo'."
 
+#: printrun/pronterface_widgets.py:187
+msgid "Printer:"
+msgstr "Impressora:"
+
+#: printrun/pronterface_widgets.py:191
+msgid "Resolution:"
+msgstr "Resolução:"
+
+#: printrun/pronterface_widgets.py:195
+msgid "Filament:"
+msgstr "Filamento:"
+
 #: printrun/pronterface_widgets.py:216
 msgid "Success!"
 msgstr "Successo!"
@@ -69,6 +81,58 @@ msgstr "Successo!"
 #: printrun/pronterface_widgets.py:216
 msgid "The printer has now saved the calibration to it's internal memory. The printer will always restore this calibration setting from memory when it's turned on, so you don't need to repeat this process, unless the heated bed leveling is changed."
 msgstr "Agora a impressora salvou a calibração em sua memória interna e irá recuperar essa calibração da memória toda vez que for ligada, de modo que você não precisará repetir este processo a não ser que haja alguma mudança na altura da plataforma de impressão."
+
+#: printrun/pronterface_widgets.py:347
+msgid "1mm Down"
+msgstr "Aproximar 1mm"
+
+#: printrun/pronterface_widgets.py:349
+msgid "0.1mm Down"
+msgstr "Aproximar 0.1mm"
+
+#: printrun/pronterface_widgets.py:351
+msgid "1mm Up"
+msgstr "Afastar 1mm"
+
+#: printrun/pronterface_widgets.py:353
+msgid "0.1mm Up"
+msgstr "Afastar 0.1mm"
+
+#: printrun/pronterface_widgets.py:356
+msgid "move the extruder nozzle 1mm away from the build platform"
+msgstr "aumenta em 1mm a distância entre o bico extrusor e a plataforma de impressão"
+
+#: printrun/pronterface_widgets.py:357
+msgid "move the extruder nozzle 0.1mm away from the build platform"
+msgstr "aumenta em 0.1mm a distância entre o bico extrusor e a plataforma de impressão"
+
+#: printrun/pronterface_widgets.py:358
+msgid "move the extruder nozzle 1mm closer to the build platform"
+msgstr "diminui em 1mm a distância entre o bico extrusor e a plataforma de impressão"
+
+#: printrun/pronterface_widgets.py:359
+msgid "move the extruder nozzle 0.1mm closer to the build platform"
+msgstr "diminui em 0.1mm a distância entre o bico extrusor e a plataforma de impressão"
+
+#: printrun/pronterface_widgets.py:232
+msgid "Be sure to plug your 3d printer to the USB port before clicking 'install'."
+msgstr "Certifique-se de conectar a impressora 3D a uma porta USB antes de clicar em 'instalar'."
+
+#: printrun/pronterface_widgets.py:287 
+msgid "downloading firmware image:"
+msgstr "fazendo download de firmware:"
+
+#: printrun/pronterface_widgets.py:303
+msgid "We're probably offline. We'll not look for updates this time. Please check your internet connection if you wish to receive software updates."
+msgstr "Aparentemente estamos desconectados da rede, portanto não será feita busca por atualizações. Por favor, verifique sua conexão de internet se você pretende receber atualizações de software."
+
+#: printrun/pronterface_widgets.py:316
+msgid "Source Code"
+msgstr "Código Fonte"
+
+#: printrun/pronterface_widgets.py:320
+msgid "Install"
+msgstr "Instalar"
 
 #: pronterface.py:26
 msgid "WX is not installed. This program requires WX to run."
@@ -307,6 +371,30 @@ msgstr "Configurações de fatiamento"
 #: pronterface.py:452
 msgid "&Settings"
 msgstr "&Configurações"
+
+#: pronterface.py:467
+msgid "&Z Calibration"
+msgstr "Calibração do eixo Z"
+
+#: pronterface.py:467
+msgid "Z Calibration wizard"
+msgstr "Rotina de calibração do eixo Z"
+
+#: pronterface.py:468
+msgid "&Firmware update"
+msgstr "Atualização de firmware"
+
+#: pronterface.py:468
+msgid "Firmware Update"
+msgstr "Atualização de firmware"
+
+#: pronterface.py:471
+msgid "Monitor mode"
+msgstr "Monitoramento de temperatura"
+
+#: pronterface.py:472
+msgid " Toggle monitor mode"
+msgstr " Liga/desliga o monitoramento de temperatura"
 
 #: pronterface.py:467
 msgid "Enter macro name"
