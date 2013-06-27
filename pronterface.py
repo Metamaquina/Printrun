@@ -22,6 +22,13 @@ def check_version(msg):
 
   return msg["above"] < PRONTERFACE_VERSION and PRONTERFACE_VERSION < msg["below"]
 
+def check_platform(msg):
+  if msg["platform"]=="gnulinux" and (_platform == "linux" or _platform == "linux2"):
+    return True
+  if msg["platform"]=="windows" and (_platform == "win32" or _platform == "cygwin"):
+    return True
+  return False
+
 import urlgrabber
 import os, Queue, re
 
@@ -202,7 +209,7 @@ class PronterWindow(MainWindow, pronsole.pronsole):
           self.install_new_profiles()
 
           for msg in self.messages_to_the_user:
-            if check_version(msg) and (msg["platform"]=="gnulinux" and (_platform == "linux" or _platform == "linux2")) or (msg["platform"]=="windows" and (_platform == "win32" or _platform == "cygwin")):
+            if check_version(msg) and check_platform(msg):
               MessageToUserDialog(msg)
         except urlgrabber.grabber.URLGrabError:
           print _("We're probably offline. We'll not look for updates this time. Please check your internet connection if you wish to receive software updates.")
