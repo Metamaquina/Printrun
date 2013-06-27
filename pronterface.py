@@ -1239,7 +1239,7 @@ class PronterWindow(MainWindow, pronsole.pronsole):
                 self.webInterface.AddLog("Slicing: "+param)
             pararray = [i.replace("$s", self.filename).replace("$o", self.filename.replace(".stl", "_export.gcode").replace(".STL", "_export.gcode")).encode() for i in shlex.split(param.replace("\\", "\\\\").encode())]
                 #print pararray
-            self.skeinp = subprocess.Popen(pararray, stderr = subprocess.STDOUT, stdout = subprocess.PIPE)
+            self.skeinp = subprocess.Popen(pararray, stdin = subprocess.PIPE, stderr = subprocess.STDOUT, stdout = subprocess.PIPE)
             while True:
                 o = self.skeinp.stdout.read(1)
                 if o == '' and self.skeinp.poll() != None: break
