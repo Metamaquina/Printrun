@@ -253,7 +253,11 @@ class MessageToUserDialog(wx.Dialog):
 from subprocess import call
 def invokeAVRDude(hex_image, port, baud=115200):
   config = "tools/avrdude.conf"
-  avrdude = "tools/avrdude"
+  if _platform == "win32" or _platform == "cygwin":
+    avrdude = "tools/avrdude.exe"
+  else:
+    avrdude = "tools/avrdude"
+
   cmd = "%s -C%s -v -v -v -v -patmega2560 -cwiring -P%s -b%d -D -Uflash:w:%s:i" %(avrdude, config, port, baud, hex_image)
   print "Gravando firmware: [%s]" % (cmd)
   call(cmd, shell=True)
