@@ -152,9 +152,9 @@ class Settings:
         self.slicecommand = "python skeinforge/skeinforge_application/skeinforge_utilities/skeinforge_craft.py $s"
         self.sliceoptscommand = "python skeinforge/skeinforge_application/skeinforge.py"
         self.final_command = ""
-        self.print_profile = ""
-        self.printer_profile = ""
-        self.filament_profile = ""
+        self.print_profile = "Padrao"
+        self.printer_profile = "Metamaquina2"
+        self.filament_profile = "PLA"
 
     def _set(self, key, value):
         try:
