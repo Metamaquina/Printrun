@@ -388,10 +388,10 @@ class WizardBedLevel(WizardPageWithGCODE):
     self.zdown1.SetToolTip(wx.ToolTip(_("move the extruder nozzle 1mm closer to the build platform")))
     self.zdown01.SetToolTip(wx.ToolTip(_("move the extruder nozzle 0.1mm closer to the build platform")))
 
-    self.sizer.Add(self.zup1)
-    self.sizer.Add(self.zup01)
-    self.sizer.Add(self.zdown01)
-    self.sizer.Add(self.zdown1)
+    self.sizer.Add(self.zup1, 0, wx.CENTER)
+    self.sizer.Add(self.zup01, 0, wx.CENTER)
+    self.sizer.Add(self.zdown01, 0, wx.CENTER)
+    self.sizer.Add(self.zdown1, 0, wx.CENTER)
 
   def send_gcode(self, printer):
     printer.send_now("G1 X100 Y100 Z5 F3000")
