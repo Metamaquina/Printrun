@@ -251,16 +251,38 @@ class MessageToUserDialog(wx.Dialog):
     self.Destroy()
 
 from subprocess import call
-def invokeAVRDude(hex_image, port, baud=115200):
-  config = "tools/avrdude.conf"
+
+def invokeAVRDude(hex_image, port, baud):
   if _platform == "win32" or _platform == "cygwin":
-    avrdude = "tools/avrdude.exe"
+    avrdude = "tools\\avrdude.exe"
+    config = "tools\\avrdude.conf"
   else:
     avrdude = "tools/avrdude"
+    config = "tools/avrdude.conf"
 
   cmd = "%s -C%s -v -v -v -v -patmega2560 -cwiring -P%s -b%d -D -Uflash:w:%s:i" %(avrdude, config, port, baud, hex_image)
   print "Gravando firmware: [%s]" % (cmd)
+
   call(cmd, shell=True)
+
+class WaitForAVRDude(wx.Dialog):
+  def __init__(self):
+    wx.Dialog.__init__(self, None, title = _("Uploading firmware"), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER)
+    title=_("Uploading firmware")
+    instructions=_("Please wait while the firmware is loaded. This may take a few minutes.")
+    self.sizer = makePageTitle(self, title)
+    instr = wx.StaticText(self, -1, instructions)
+    instr.SetFont(wx.Font(12, wx.SWISS, wx.NORMAL, wx.BOLD))
+    instr.Wrap(400)
+    self.sizer.AddWindow(instr, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
+
+    self.Fit()
+    self.Layout()
+    self.CentreOnScreen()
+    # Display the Dialog
+    self.Show()
+    # Make sure the screen gets fully drawn before continuing.
+    wx.Yield()
 
 from os import remove
 from tempfile import mkstemp
@@ -282,10 +304,7 @@ class firmwareupdate(wx.Dialog):
     self.images = []
     self.sources = []
     self.build_firmware_list()
-    if self.ShowModal() == wx.ID_OK:
-      pass
-
-    self.Destroy()
+    self.ShowModal()
 
   def install_fw(self, event):
     print _("downloading firmware image:")
@@ -293,6 +312,8 @@ class firmwareupdate(wx.Dialog):
     print image
 
     try:
+      wait = WaitForAVRDude()
+
       tmpfile_handle, hex_image_path = mkstemp()
       urlgrabber.urlgrab(str(image), filename=hex_image_path, timeout=15)
 
@@ -303,6 +324,9 @@ class firmwareupdate(wx.Dialog):
       invokeAVRDude(hex_image_path, port, baudrate)
       remove(hex_image_path)
       self.pronterface.connect(False)
+      wait.Destroy()
+      self.Destroy()
+
     except urlgrabber.grabber.URLGrabError:
       print _("We're probably offline. We'll not look for updates this time. Please check your internet connection if you wish to receive software updates.")
 
