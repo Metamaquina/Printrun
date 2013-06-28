@@ -22,6 +22,7 @@ import math, codecs
 from math import sqrt
 from gcoder import GCode
 
+from sys import platform as _platform
 import printcore
 from printrun.printrun_utils import install_locale
 install_locale('pronterface')
@@ -149,8 +150,11 @@ class Settings:
         self.xy_feedrate = 3000
         self.z_feedrate = 200
         self.e_feedrate = 300
-        self.slicecommand = "python skeinforge/skeinforge_application/skeinforge_utilities/skeinforge_craft.py $s"
-        self.sliceoptscommand = "python skeinforge/skeinforge_application/skeinforge.py"
+        if _platform == "win32" or _platform == "cygwin":
+            self.slicecommand = "Slic3r_windows/slic3r.exe --load profiles/printer/Metamaquina2.ini --load profiles/print/Padrao.ini --load profiles/filament/PLA.ini $s --output $o"
+        else:
+            self.slicecommand = "Slic3r/slic3r --load profiles/printer/Metamaquina2.ini --load profiles/print/Padrao.ini --load profiles/filament/PLA.ini $s --output $o"
+        self.sliceoptscommand = ""
         self.final_command = ""
         self.print_profile = "Padrao"
         self.printer_profile = "Metamaquina2"
