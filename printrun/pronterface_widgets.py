@@ -324,10 +324,10 @@ class firmwareupdate(wx.Dialog):
 
       self.pronterface.disconnect(False)
       invokeAVRDude(hex_image_path, port, baudrate)
-      remove(hex_image_path)
       self.pronterface.connect(False)
       wait.Destroy()
       self.Destroy()
+      remove(hex_image_path)
 
     except urlgrabber.grabber.URLGrabError:
       print _("We're probably offline. We'll not look for updates this time. Please check your internet connection if you wish to receive software updates.")
