@@ -67,8 +67,8 @@ msgid "Printer:"
 msgstr "Impressora:"
 
 #: printrun/pronterface_widgets.py:191
-msgid "Resolution:"
-msgstr "Resolução:"
+msgid "Quality:"
+msgstr "Qualidade:"
 
 #: printrun/pronterface_widgets.py:195
 msgid "Filament:"

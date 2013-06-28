@@ -188,7 +188,7 @@ class slicingsettings(wx.Dialog):
     grid.Add(printer_profile, 1, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_LEFT)
 
     print_profile = wx.ComboBox(self, -1, choices = resolution_choices, value=self.pronterface.settings.print_profile, style = wx.CB_DROPDOWN, size = (120,-1))
-    grid.Add(wx.StaticText(self,-1, _("Resolution:")), 0, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
+    grid.Add(wx.StaticText(self,-1, _("Quality:")), 0, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
     grid.Add(print_profile, 1, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_LEFT)
 
     filament_profile = wx.ComboBox(self, -1, choices = filament_choices, value=self.pronterface.settings.filament_profile, style = wx.CB_DROPDOWN, size = (120,-1))
