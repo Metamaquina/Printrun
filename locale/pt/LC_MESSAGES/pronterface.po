@@ -118,6 +118,14 @@ msgstr "diminui em 0.1mm a distância entre o bico extrusor e a plataforma de im
 msgid "Be sure to plug your 3d printer to the USB port before clicking 'install'."
 msgstr "Certifique-se de conectar a impressora 3D a uma porta USB antes de clicar em 'instalar'."
 
+#: printrun/pronterface_widgets.py:271
+msgid "Uploading firmware"
+msgstr "Instalando firmware"
+
+#: printrun/pronterface_widgets.py:272
+msgid "Please wait while the firmware is loaded. This may take a few minutes."
+msgstr "Por favor aguarde enquanto o firmware é instalado. Esta operação pode levar alguns minutos."
+
 #: printrun/pronterface_widgets.py:287 
 msgid "downloading firmware image:"
 msgstr "fazendo download de firmware:"
