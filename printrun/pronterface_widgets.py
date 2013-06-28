@@ -304,6 +304,8 @@ class firmwareupdate(wx.Dialog):
     self.images = []
     self.sources = []
     self.build_firmware_list()
+    self.sizer.Layout()
+    self.sizer.Fit(self)
     self.ShowModal()
 
   def install_fw(self, event):
