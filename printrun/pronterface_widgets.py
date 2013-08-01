@@ -195,6 +195,10 @@ class slicingsettings(wx.Dialog):
     grid.Add(wx.StaticText(self,-1, _("Filament:")), 0, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
     grid.Add(filament_profile, 1, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_LEFT)
 
+    fill_density = wx.Slider(self, -1, int(self.pronterface.settings.fill_density), minValue=0, maxValue=100, style=wx.SL_AUTOTICKS|wx.SL_LABELS, size = (120,-1))
+    grid.Add(wx.StaticText(self,-1, _("Fill density:")), 0, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
+    grid.Add(fill_density, 1, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_LEFT)
+
     self.sizer.Add(self.CreateSeparatedButtonSizer(wx.OK+wx.CANCEL), 0, wx.EXPAND)
     self.SetSizer(self.sizer)
     self.sizer.Layout()
@@ -210,12 +214,15 @@ class slicingsettings(wx.Dialog):
       if filament_profile.GetValue() != str(self.pronterface.settings.filament_profile):
         pronterface.set("filament_profile", filament_profile.GetValue())
 
+      if fill_density.GetValue() != str(self.pronterface.settings.fill_density):
+        pronterface.set("fill_density", fill_density.GetValue())
+
       if _platform == "win32" or _platform == "cygwin":
         slicer_executable = "Slic3r_windows/slic3r.exe"
       else:
         slicer_executable = "Slic3r/slic3r.pl"
 
-      pronterface.set("slicecommand", "%s --load %s/%s.ini --load %s/%s.ini --load %s/%s.ini $s --output $o" % (slicer_executable, printer_path, printer_profile.GetValue(), print_path, print_profile.GetValue(), filament_path, filament_profile.GetValue()))
+      pronterface.set("slicecommand", "%s --load %s/%s.ini --load %s/%s.ini --load %s/%s.ini --fill-density %s $s --output $o" % (slicer_executable, printer_path, printer_profile.GetValue(), print_path, print_profile.GetValue(), filament_path, filament_profile.GetValue(), str(int(fill_density.GetValue())/100.0)))
 
     self.Destroy()
 

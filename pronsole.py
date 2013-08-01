@@ -151,14 +151,16 @@ class Settings:
         self.z_feedrate = 200
         self.e_feedrate = 300
         if _platform == "win32" or _platform == "cygwin":
-            self.slicecommand = "Slic3r_windows/slic3r.exe --load profiles/printer/Metamaquina2.ini --load profiles/print/Padrao.ini --load profiles/filament/PLA.ini $s --output $o"
+            self.slicecommand = "Slic3r_windows/slic3r.exe --load profiles/printer/Metamaquina2.ini --load profiles/print/Padrao.ini --load profiles/filament/PLA.ini --fill-density %s $s --output $o"
+            self.sliceoptscommand = "Slic3r_windows/slic3r.exe"
         else:
-            self.slicecommand = "Slic3r/slic3r --load profiles/printer/Metamaquina2.ini --load profiles/print/Padrao.ini --load profiles/filament/PLA.ini $s --output $o"
-        self.sliceoptscommand = ""
+            self.slicecommand = "Slic3r/slic3r --load profiles/printer/Metamaquina2.ini --load profiles/print/Padrao.ini --load profiles/filament/PLA.ini --fill-density %s $s --output $o"
+            self.sliceoptscommand = "Slic3r/slic3r"
         self.final_command = ""
         self.print_profile = "Padrao"
         self.printer_profile = "Metamaquina2"
         self.filament_profile = "PLA"
+        self.fill_density = "35"
 
     def _set(self, key, value):
         try:
