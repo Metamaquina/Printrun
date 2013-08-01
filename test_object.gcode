@@ -30,7 +30,7 @@ G0 Z3 F300
 G0 Z0 F75
 M190 S75 ; wait for bed temp
 M109 S175 ; set heater temp and wait
-M908 P3 S120 ; increase extruder motor current 
+M908 P3 S150 ; increase extruder motor current
 G92 E0 ; reset extruder length
 G90 ; use absolute coordinates
 M83 ; use relative distances for extrusion
