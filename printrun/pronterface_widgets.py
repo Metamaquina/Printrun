@@ -220,7 +220,7 @@ class slicingsettings(wx.Dialog):
       if _platform == "win32" or _platform == "cygwin":
         slicer_executable = "Slic3r_windows/slic3r.exe"
       else:
-        slicer_executable = "Slic3r/slic3r.pl"
+        slicer_executable = "Slic3r_x86_0-9-10b/bin/slic3r"
 
       pronterface.set("slicecommand", "%s --load %s/%s.ini --load %s/%s.ini --load %s/%s.ini --fill-density %s $s --output $o" % (slicer_executable, printer_path, printer_profile.GetValue(), print_path, print_profile.GetValue(), filament_path, filament_profile.GetValue(), str(int(fill_density.GetValue())/100.0)))
 
