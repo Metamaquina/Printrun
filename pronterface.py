@@ -496,6 +496,7 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         # Help menu
         m = wx.Menu()
         self.Bind(wx.EVT_MENU, self.report_a_bug, m.Append(-1, _("&Report a bug..."), _(" Opens the bugtracker in a web browser")))
+        self.Bind(wx.EVT_MENU, self.metamaquina2_user_guide, m.Append(-1, _("&MM2 Documentation..."), _(" Opens the Metamaquina 2 documentation in a web browser")))
         self.menustrip.Append(m, _("&Help"))
 
         self.update_macros_menu()
@@ -514,6 +515,10 @@ class PronterWindow(MainWindow, pronsole.pronsole):
     def report_a_bug(self, e = None):
       from webbrowser import open_new_tab
       open_new_tab("https://github.com/Metamaquina/Printrun/issues")
+
+    def metamaquina2_user_guide(self, e = None):
+      from webbrowser import open_new_tab
+      open_new_tab("http://metamaquina.com.br/documentacao/")
 
     def new_macro(self, e = None):
         dialog = wx.Dialog(self, -1, _("Enter macro name"), size = (260, 85))
