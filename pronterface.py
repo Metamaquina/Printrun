@@ -492,6 +492,12 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         #    pass
 
         self.menustrip.Append(m, _("&Settings"))
+
+        # Help menu
+        m = wx.Menu()
+        self.Bind(wx.EVT_MENU, self.report_a_bug, m.Append(-1, _("&Report a bug..."), _(" Opens the bugtracker in a web browser")))
+        self.menustrip.Append(m, _("&Help"))
+
         self.update_macros_menu()
         self.SetMenuBar(self.menustrip)
 
@@ -504,6 +510,10 @@ class PronterWindow(MainWindow, pronsole.pronsole):
     def do_editgcode(self, e = None):
         if self.filename is not None:
             MacroEditor(self.filename, self.f, self.doneediting, 1)
+
+    def report_a_bug(self, e = None):
+      from webbrowser import open_new_tab
+      open_new_tab("https://github.com/Metamaquina/Printrun/issues")
 
     def new_macro(self, e = None):
         dialog = wx.Dialog(self, -1, _("Enter macro name"), size = (260, 85))
