@@ -199,6 +199,10 @@ class slicingsettings(wx.Dialog):
     grid.Add(wx.StaticText(self,-1, _("Fill density:")), 0, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
     grid.Add(fill_density, 1, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_LEFT)
 
+    grid.Add(wx.StaticText(self,-1, _("Support:")), 0, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
+    support_material = wx.CheckBox(self, -1, _("Use support material"), (10, 10))
+    grid.Add(support_material, 1, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_LEFT)
+
     self.sizer.Add(self.CreateSeparatedButtonSizer(wx.OK+wx.CANCEL), 0, wx.EXPAND)
     self.SetSizer(self.sizer)
     self.sizer.Layout()
@@ -217,12 +221,20 @@ class slicingsettings(wx.Dialog):
       if fill_density.GetValue() != str(self.pronterface.settings.fill_density):
         pronterface.set("fill_density", fill_density.GetValue())
 
+      if support_material.GetValue() != str(self.pronterface.settings.support_material):
+        pronterface.set("support_material", support_material.GetValue())
+
       if _platform == "win32" or _platform == "cygwin":
         slicer_executable = "Slic3r_windows/slic3r.exe"
       else:
         slicer_executable = "Slic3r_x86_0-9-10b/bin/slic3r"
 
-      pronterface.set("slicecommand", "%s --load %s/%s.ini --load %s/%s.ini --load %s/%s.ini --fill-density %s $s --output $o" % (slicer_executable, printer_path, printer_profile.GetValue(), print_path, print_profile.GetValue(), filament_path, filament_profile.GetValue(), str(int(fill_density.GetValue())/100.0)))
+      if support_material.GetValue():
+        support_material_param = "--support_material"
+      else:
+        support_material_param = ""
+
+      pronterface.set("slicecommand", "%s --load %s/%s.ini --load %s/%s.ini --load %s/%s.ini --fill-density %s %s $s --output $o" % (slicer_executable, printer_path, printer_profile.GetValue(), print_path, print_profile.GetValue(), filament_path, filament_profile.GetValue(), str(int(fill_density.GetValue())/100.0), support_material_param))
 
     self.Destroy()
 

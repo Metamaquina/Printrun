@@ -161,6 +161,7 @@ class Settings:
         self.printer_profile = "Metamaquina2"
         self.filament_profile = "PLA"
         self.fill_density = "35"
+        self.support_material = False
 
     def _set(self, key, value):
         try:
