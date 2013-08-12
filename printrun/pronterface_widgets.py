@@ -413,7 +413,7 @@ class WizardBedLevel(WizardPageWithGCODE):
     self.sizer.Add(self.zdown1, 0, wx.CENTER)
 
   def send_gcode(self, printer):
-    printer.send_now("G1 X100 Y100 Z5 F3000")
+    printer.send_now("G1 X100 Y100 Z10 F3000")
 
   def zdown1Click(self, event):
     self.move(-1)
