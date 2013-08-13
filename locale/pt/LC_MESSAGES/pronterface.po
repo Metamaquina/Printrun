@@ -376,6 +376,18 @@ msgstr "Ajustar configurações de fatiamento"
 msgid "Slicing Settings"
 msgstr "Configurações de fatiamento"
 
+#: pronterface.py:499
+msgid "&MM2 Documentation..."
+msgstr "&Documentação da Metamáquina 2..."
+
+#: pronterface.py:499
+msgid " Opens the Metamaquina 2 documentation in a web browser"
+msgstr " Abre a documentação da Metamáquina 2 em um navegador"
+
+#: pronterface.py:500
+msgid "&Help"
+msgstr "&Ajuda"
+
 #: pronterface.py:452
 msgid "&Settings"
 msgstr "&Configurações"
