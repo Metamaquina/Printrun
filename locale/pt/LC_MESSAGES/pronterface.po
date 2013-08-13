@@ -74,6 +74,18 @@ msgstr "Qualidade:"
 msgid "Filament:"
 msgstr "Filamento:"
 
+#: printrun/pronterface_widgets.py:199
+msgid "Fill density:"
+msgstr "Densidade do preenchimento:"
+
+#: printrun/pronterface_widgets.py:195
+msgid "Support:"
+msgstr "Material de suporte:"
+
+#: printrun/pronterface_widgets.py:195
+msgid "Use support material"
+msgstr "habilitar"
+
 #: printrun/pronterface_widgets.py:216
 msgid "Success!"
 msgstr "Successo!"
