@@ -495,7 +495,7 @@ class PronterWindow(MainWindow, pronsole.pronsole):
 
         # Help menu
         m = wx.Menu()
-        self.Bind(wx.EVT_MENU, self.report_a_bug, m.Append(-1, _("&Report a bug..."), _(" Opens the bugtracker in a web browser")))
+#        self.Bind(wx.EVT_MENU, self.report_a_bug, m.Append(-1, _("&Report a bug..."), _(" Opens the bugtracker in a web browser")))
         self.Bind(wx.EVT_MENU, self.metamaquina2_user_guide, m.Append(-1, _("&MM2 Documentation..."), _(" Opens the Metamaquina 2 documentation in a web browser")))
         self.menustrip.Append(m, _("&Help"))
 
