@@ -130,7 +130,7 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         self.capture_skip = {}
         self.capture_skip_newline = False
         self.tempreport = ""
-        self.monitor = 0
+        self.monitor = True #temperature monitoring turned on by default
         self.f = None
         self.skeinp = None
         self.monitor_interval = 3
@@ -477,7 +477,7 @@ class PronterWindow(MainWindow, pronsole.pronsole):
 
 	mItem = m.AppendCheckItem(-1, _("Monitor mode"),
             _(" Toggle monitor mode"))
-        m.Check(mItem.GetId(), self.p.loud)
+        m.Check(mItem.GetId(), self.monitor)
         self.Bind(wx.EVT_MENU, self.setmonitor2, mItem)
 
         mItem = m.AppendCheckItem(-1, _("Debug G-code"),
@@ -1465,6 +1465,10 @@ class PronterWindow(MainWindow, pronsole.pronsole):
 
     def connect(self, event):
         print _("Connecting...")
+
+        if self.monitor:
+            wx.CallAfter(self.graph.StartPlotting, 1000)
+
         port = None
         try:
             port = self.scanserial()[0]
