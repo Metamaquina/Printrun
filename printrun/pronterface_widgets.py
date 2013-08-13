@@ -227,7 +227,7 @@ class slicingsettings(wx.Dialog):
       if _platform == "win32" or _platform == "cygwin":
         slicer_executable = "Slic3r_windows/slic3r.exe"
       else:
-        slicer_executable = "Slic3r_x86_0-9-10b/bin/slic3r"
+        slicer_executable = "Slic3r_gnulinux/bin/slic3r"
 
       if support_material.GetValue():
         support_material_param = "--support_material"
