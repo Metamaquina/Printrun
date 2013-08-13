@@ -201,6 +201,7 @@ class slicingsettings(wx.Dialog):
 
     grid.Add(wx.StaticText(self,-1, _("Support:")), 0, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
     support_material = wx.CheckBox(self, -1, _("Use support material"), (10, 10))
+    support_material.SetValue(self.pronterface.settings.support_material)
     grid.Add(support_material, 1, flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_LEFT)
 
     self.sizer.Add(self.CreateSeparatedButtonSizer(wx.OK+wx.CANCEL), 0, wx.EXPAND)
