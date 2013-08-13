@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Printrun.  If not, see <http://www.gnu.org/licenses/>.
 
-PRONTERFACE_VERSION = "20130801"
+PRONTERFACE_VERSION = "20130813"
 def check_version(msg):
   if msg["equals"] != "":
     return PRONTERFACE_VERSION == msg["equals"]
