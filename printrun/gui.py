@@ -47,8 +47,10 @@ class XYZControlsSizer(wx.GridBagSizer):
         super(XYZControlsSizer, self).__init__()
         root.xyb = XYButtons(root.panel, root.moveXY, root.homeButtonClicked, root.spacebarAction, root.settings.bgcolor)
         self.Add(root.xyb, pos = (0, 1), flag = wx.ALIGN_CENTER)
+        root.xyb.SetMinSize(root.xyb.GetClientSize())
         root.zb = ZButtons(root.panel, root.moveZ, root.settings.bgcolor)
         self.Add(root.zb, pos = (0, 2), flag = wx.ALIGN_CENTER)
+        root.zb.SetMinSize(root.zb.GetClientSize())
         wx.CallAfter(root.xyb.SetFocus)
 
 class LeftPane(wx.GridBagSizer):
@@ -168,6 +170,7 @@ class LeftPane(wx.GridBagSizer):
 
         root.graph = Graph(root.panel, wx.ID_ANY)
         self.Add(root.graph, pos = (3, 5), span = (3, 3))
+        root.graph.SetMinSize(root.graph.GetClientSize())
         self.Add(root.tempdisp, pos = (6, 0), span = (1, 9))
 
 class VizPane(wx.BoxSizer):
