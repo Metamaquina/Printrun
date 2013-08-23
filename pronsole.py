@@ -154,8 +154,8 @@ class Settings:
             self.slicecommand = "Slic3r_windows/slic3r.exe --load profiles/printer/Metamaquina2.ini --load profiles/print/Padrao.ini --load profiles/filament/PLA.ini --fill-density %s $s --output $o"
             self.sliceoptscommand = "Slic3r_windows/slic3r.exe"
         else:
-            self.slicecommand = "Slic3r/slic3r --load profiles/printer/Metamaquina2.ini --load profiles/print/Padrao.ini --load profiles/filament/PLA.ini --fill-density %s $s --output $o"
-            self.sliceoptscommand = "Slic3r/slic3r"
+            self.slicecommand = "Slic3r_gnulinux/bin/slic3r --load profiles/printer/Metamaquina2.ini --load profiles/print/Padrao.ini --load profiles/filament/PLA.ini --fill-density %s $s --output $o"
+            self.sliceoptscommand = "Slic3r_gnulinux/bin/slic3r"
         self.final_command = ""
         self.print_profile = "Padrao"
         self.printer_profile = "Metamaquina2"
