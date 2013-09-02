@@ -151,10 +151,10 @@ class Settings:
         self.z_feedrate = 200
         self.e_feedrate = 100
         if _platform == "win32" or _platform == "cygwin":
-            self.slicecommand = "Slic3r_windows/slic3r.exe --load profiles/printer/Metamaquina2.ini --load profiles/print/Padrao.ini --load profiles/filament/PLA.ini --fill-density %s $s --output $o"
+            self.slicecommand = "Slic3r_windows/slic3r.exe --load profiles/printer/Metamaquina2.ini --load profiles/print/Padrao.ini --load profiles/filament/PLA.ini --fill-density 0.35 $s --output $o"
             self.sliceoptscommand = "Slic3r_windows/slic3r.exe"
         else:
-            self.slicecommand = "Slic3r_gnulinux/bin/slic3r --load profiles/printer/Metamaquina2.ini --load profiles/print/Padrao.ini --load profiles/filament/PLA.ini --fill-density %s $s --output $o"
+            self.slicecommand = "Slic3r_gnulinux/bin/slic3r --load profiles/printer/Metamaquina2.ini --load profiles/print/Padrao.ini --load profiles/filament/PLA.ini --fill-density 0.35 $s --output $o"
             self.sliceoptscommand = "Slic3r_gnulinux/bin/slic3r"
         self.final_command = ""
         self.print_profile = "Padrao"
