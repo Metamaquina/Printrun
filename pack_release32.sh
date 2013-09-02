@@ -1,4 +1,6 @@
-VERSION=20130814
+#call this script this way:
+#VERSION=20130814 sh pack_release32.sh
+
 DIRNAME=MM_Pronterface_GNULinux_32bits_$VERSION
 TMPDIR=/tmp/mmbundle/$DIRNAME
 mkdir -p $TMPDIR
