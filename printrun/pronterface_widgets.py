@@ -177,7 +177,7 @@ class slicingsettings(wx.Dialog):
 
     self.sizer = makePageTitle(self, _("Slicing Settings"))
 
-    grid = wx.FlexGridSizer(rows = 3, cols = 2, hgap = 2, vgap = 2)
+    grid = wx.FlexGridSizer(cols = 2, hgap = 2, vgap = 2)
     grid.SetFlexibleDirection( wx.BOTH )
     grid.AddGrowableCol( 1 )
     grid.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
