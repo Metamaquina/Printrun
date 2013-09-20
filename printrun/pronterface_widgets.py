@@ -239,6 +239,41 @@ class slicingsettings(wx.Dialog):
 
     self.Destroy()
 
+class ConfirmCloseDialog(wx.Dialog):
+  """Ask the user if she really wants to close the program"""
+
+  def close_it_now(self, event):
+    self.main_window.kill(event)
+    self.Destroy()
+
+  def __init__(self, main_window):
+    self.main_window = main_window
+
+    wx.Dialog.__init__(self, None, title = _("Are you sure?"), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER)
+    title = _("Are you sure?")
+    alert_msg = _("This will interrupt any printjob in execution!\nAre you sure you want to close the program?")
+    self.sizer = makePageTitle(self, title)
+    alert = wx.StaticText(self, -1, alert_msg)
+    alert.SetFont(wx.Font(12, wx.SWISS, wx.NORMAL, wx.BOLD))
+    alert.Wrap(400)
+    self.sizer.AddWindow(alert, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
+
+
+    buttons = wx.BoxSizer(wx.HORIZONTAL)
+    yes_button = wx.Button(self, label=_("Yes, close it now!"))
+    yes_button.Bind(wx.EVT_BUTTON, self.close_it_now)
+    buttons.AddWindow(yes_button, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
+
+    no_button = wx.Button(self, label=_("Opps! No!"))
+    no_button.Bind(wx.EVT_BUTTON, lambda x: self.Destroy())
+    buttons.AddWindow(no_button, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
+
+    self.sizer.AddWindow(buttons, 0, wx.ALIGN_RIGHT|wx.ALL, 5)
+
+    self.Fit()
+    self.ShowModal()
+    self.Destroy()
+
 class MessageToUserDialog(wx.Dialog):
   """Display a remote message to our users"""
   def download(self, event):

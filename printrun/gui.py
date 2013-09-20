@@ -26,6 +26,7 @@ from printrun import gviz
 from printrun.xybuttons import XYButtons
 from printrun.zbuttons import ZButtons
 from printrun.graph import Graph
+from pronterface_widgets import ConfirmCloseDialog
 
 def make_button(parent, label, callback, tooltip, container = None, size = wx.DefaultSize, style = 0):
     button = wx.Button(parent, -1, label, style = style, size = size)
@@ -280,7 +281,7 @@ class MainWindow(wx.Frame):
         self.status = self.CreateStatusBar()
         self.status.SetStatusText(_("Not connected to printer."))
         self.panel.Bind(wx.EVT_MOUSE_EVENTS, self.editbutton)
-        self.Bind(wx.EVT_CLOSE, self.kill)
+        self.Bind(wx.EVT_CLOSE, lambda evt: ConfirmCloseDialog(self))
 
         self.mainsizer.Layout()
         self.mainsizer.Fit(self)
