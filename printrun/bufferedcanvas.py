@@ -62,22 +62,22 @@ class BufferedCanvas(wx.Panel):
                  ID=-1,
                  pos = wx.DefaultPosition,
                  size = wx.DefaultSize,
-                 style = wx.NO_FULL_REPAINT_ON_RESIZE|wx.WANTS_CHARS):
+                 style = wx.NO_FULL_REPAINT_ON_RESIZE | wx.WANTS_CHARS):
         wx.Panel.__init__(self, parent, ID, pos, size, style)
 
         # Bind events
         self.Bind(wx.EVT_PAINT, self.onPaint)
 
         # Disable background erasing (flicker-licious)
-        def disable_event(*pargs,**kwargs):
-            pass # the sauce, please
+        def disable_event(*pargs, **kwargs):
+            pass  # the sauce, please
         self.Bind(wx.EVT_ERASE_BACKGROUND, disable_event)
 
     ##
     ## General methods
     ##
 
-    def draw(self, dc):
+    def draw(self, dc, w, h):
         """
         Stub: called when the canvas needs to be re-drawn.
         """
