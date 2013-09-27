@@ -135,20 +135,6 @@ class LeftPane(wx.GridBagSizer):
 
         root.tempdisp = wx.StaticText(root.panel,-1, "")
 
-        root.edist = wx.SpinCtrl(root.panel,-1, "5", min = 0, max = 1000, size = (60,-1))
-        root.edist.SetBackgroundColour((225, 200, 200))
-        root.edist.SetForegroundColour("black")
-        self.Add(root.edist, pos = (4, 2), span = (1, 2))
-        self.Add(wx.StaticText(root.panel,-1, _("mm")), pos = (4, 4), span = (1, 1))
-        root.edist.SetToolTip(wx.ToolTip("Amount to Extrude or Retract (mm)"))
-        root.efeedc = wx.SpinCtrl(root.panel,-1, str(root.settings.e_feedrate), min = 0, max = 50000, size = (60,-1))
-        root.efeedc.SetToolTip(wx.ToolTip("Extrude / Retract speed (mm/min)"))
-        root.efeedc.SetBackgroundColour((225, 200, 200))
-        root.efeedc.SetForegroundColour("black")
-        root.efeedc.Bind(wx.EVT_SPINCTRL, root.setfeeds)
-        self.Add(root.efeedc, pos = (5, 2), span = (1, 2))
-        self.Add(wx.StaticText(root.panel,-1, _("mm/\nmin")), pos = (5, 4), span = (1, 1))
-
         root.graph = Graph(root.panel, wx.ID_ANY)
         self.Add(root.graph, pos = (3, 5), span = (3, 3))
         root.graph.SetMinSize(root.graph.GetClientSize())
