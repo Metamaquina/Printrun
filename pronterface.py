@@ -1528,7 +1528,7 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         self.p.startprint(self.predisconnect_mainqueue, self.p.queueindex)
 
     def testprint(self, event):
-        self.do_load("test_object.gcode")
+        self.do_load("test_object_PLA.gcode")
         self.printfile(None)
 
     def store_predisconnect_state(self):
