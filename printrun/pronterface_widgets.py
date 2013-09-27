@@ -264,7 +264,7 @@ class ConfirmCloseDialog(wx.Dialog):
     yes_button.Bind(wx.EVT_BUTTON, self.close_it_now)
     buttons.AddWindow(yes_button, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
 
-    no_button = wx.Button(self, label=_("Opps! No!"))
+    no_button = wx.Button(self, label=_("Oops! No!"))
     no_button.Bind(wx.EVT_BUTTON, lambda x: self.Destroy())
     buttons.AddWindow(no_button, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
 

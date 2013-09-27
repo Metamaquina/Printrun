@@ -94,6 +94,22 @@ msgstr "Successo!"
 msgid "The printer has now saved the calibration to it's internal memory. The printer will always restore this calibration setting from memory when it's turned on, so you don't need to repeat this process, unless the heated bed leveling is changed."
 msgstr "Agora a impressora salvou a calibração em sua memória interna e irá recuperar essa calibração da memória toda vez que for ligada, de modo que você não precisará repetir este processo a não ser que haja alguma mudança na altura da plataforma de impressão."
 
+#: printrun/pronterface_widgets.py:252
+msgid "Are you sure?"
+msgstr "Você tem certeza?"
+
+#: printrun/pronterface_widgets.py:254
+msgid "This will interrupt any printjob in execution!\nAre you sure you want to close the program?"
+msgstr "Isso irá interromper qualquer impressão que estiver em andamento!\nVocê tem certeza de que quer fechar o programa?"
+
+#: printrun/pronterface_widgets.py:263
+msgid "Yes, close it now!"
+msgstr "Sim, feche agora!"
+
+#: printrun/pronterface_widgets.py:267
+msgid "Oops! No!"
+msgstr "Oops! Não!"
+
 #: printrun/pronterface_widgets.py:347
 msgid "1mm Down"
 msgstr "Aproximar 1mm"
