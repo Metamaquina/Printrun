@@ -1304,6 +1304,9 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         self.skeinp = None
 
     def skein(self, filename):
+        if slicingsettings(self).GetReturnCode() != wx.ID_OK:
+          return
+
         wx.CallAfter(self.loadbtn.SetLabel, _("Cancel"))
         print _("Slicing ") + filename
         self.cout = StringIO.StringIO()
