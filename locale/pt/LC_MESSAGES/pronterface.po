@@ -25,6 +25,7 @@ msgid "Save"
 msgstr "Salvar"
 
 #: printrun/pronterface_widgets.py:41
+#: printrun/pronterface_widgets.py:303
 #: pronterface.py:477
 #: pronterface.py:1535
 msgid "Cancel"
@@ -109,6 +110,18 @@ msgstr "Sim, feche agora!"
 #: printrun/pronterface_widgets.py:267
 msgid "Oops! No!"
 msgstr "Oops! Não!"
+
+#: printrun/pronterface_widgets.py:288
+msgid "PLA plastic only!"
+msgstr "Apenas plástico PLA!"
+
+#: printrun/pronterface_widgets.py:290
+msgid "Make sure you're using PLA plastic before running this test. The machine won't work properly if you try to print this using any other kind of plastic."
+msgstr "Certifique-se de estar usando filamento plástico de PLA antes de executar esse teste. A máquina não irá operar corretamente se você tentar imprimir este objeto de teste usando qualquer outro tipo de plástico."
+
+#: printrun/pronterface_widgets.py:299
+msgid "Yes, I am using PLA filament."
+msgstr "Sim, eu estou usando filamento de PLA."
 
 #: printrun/pronterface_widgets.py:347
 msgid "1mm Down"
@@ -505,6 +518,10 @@ msgstr "Pausar"
 #, fuzzy
 msgid "Recover"
 msgstr "Recuperar"
+
+#: printrun/gui.py:259
+msgid "Print a test"
+msgstr "Teste de Impressão"
 
 #: pronterface.py:630
 msgid "Send"
