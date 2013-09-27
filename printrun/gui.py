@@ -74,23 +74,7 @@ class LeftPane(wx.GridBagSizer):
                 if i.span == 0:
                     llts.Add(btn)
             else:
-                self.Add(btn, pos = i.pos, span = i.span)
-
-        root.xyfeedc = wx.SpinCtrl(root.panel,-1, str(root.settings.xy_feedrate), min = 0, max = 50000, size = (70,-1))
-        root.xyfeedc.SetToolTip(wx.ToolTip("Set Maximum Speed for X & Y axes (mm/min)"))
-        llts.Add(wx.StaticText(root.panel,-1, _("XY:")), flag = wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL)
-        llts.Add(root.xyfeedc)
-        llts.Add(wx.StaticText(root.panel,-1, _("mm/min   Z:")), flag = wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL)
-        root.zfeedc = wx.SpinCtrl(root.panel,-1, str(root.settings.z_feedrate), min = 0, max = 50000, size = (70,-1))
-        root.zfeedc.SetToolTip(wx.ToolTip("Set Maximum Speed for Z axis (mm/min)"))
-        llts.Add(root.zfeedc,)
-
-	#TODO: delete/refactor this
-        #root.monitorbox = wx.CheckBox(root.panel,-1, _("Watch"))
-        #root.monitorbox.SetToolTip(wx.ToolTip("Monitor Temperatures in Graph"))
-        #self.Add(root.monitorbox, pos = (2, 6))
-        #root.monitorbox.Bind(wx.EVT_CHECKBOX, root.setmonitor)
-	
+                self.Add(btn, pos = i.pos, span = i.span)	
 
         self.Add(wx.StaticText(root.panel,-1, _("Heat:")), pos = (2, 0), span = (1, 1), flag = wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_RIGHT)
         htemp_choices = [root.temps[i]+" ("+i+")" for i in sorted(root.temps.keys(), key = lambda x:root.temps[x])]
@@ -164,10 +148,6 @@ class LeftPane(wx.GridBagSizer):
         root.efeedc.Bind(wx.EVT_SPINCTRL, root.setfeeds)
         self.Add(root.efeedc, pos = (5, 2), span = (1, 2))
         self.Add(wx.StaticText(root.panel,-1, _("mm/\nmin")), pos = (5, 4), span = (1, 1))
-        root.xyfeedc.Bind(wx.EVT_SPINCTRL, root.setfeeds)
-        root.zfeedc.Bind(wx.EVT_SPINCTRL, root.setfeeds)
-        root.zfeedc.SetBackgroundColour((180, 255, 180))
-        root.zfeedc.SetForegroundColour("black")
 
         root.graph = Graph(root.panel, wx.ID_ANY)
         self.Add(root.graph, pos = (3, 5), span = (3, 3))
