@@ -200,17 +200,6 @@ class MainToolbar(wx.BoxSizer):
         root.rescanports()
         self.Add(root.serialport)
 
-        self.Add(wx.StaticText(root.panel,-1, "@"), 0, wx.RIGHT|wx.ALIGN_CENTER, 0)
-        root.baud = wx.ComboBox(root.panel, -1,
-                choices = ["2400", "9600", "19200", "38400", "57600", "115200", "250000"],
-                style = wx.CB_DROPDOWN,  size = (100, 25))
-        root.baud.SetToolTip(wx.ToolTip("Select Baud rate for printer communication"))
-        try:
-            root.baud.SetValue("115200")
-            root.baud.SetValue(str(root.settings.baudrate))
-        except:
-            pass
-        self.Add(root.baud)
         root.connectbtn = make_sized_button(root.panel, _("Connect"), root.connect, _("Connect to the printer"), self)
 
         root.resetbtn = make_autosize_button(root.panel, _("Reset"), root.reset, _("Reset the printer"), self)
