@@ -1528,8 +1528,9 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         self.p.startprint(self.predisconnect_mainqueue, self.p.queueindex)
 
     def testprint(self, event):
-        self.do_load("test_object_PLA.gcode")
-        self.printfile(None)
+        #if we ever provide other tests, we can decide here which test to run.
+        #for now we only provide the gcode to test printing with PLA plastic
+        ConfirmPLATestDialog(self)
 
     def store_predisconnect_state(self):
         self.predisconnect_mainqueue = self.p.mainqueue

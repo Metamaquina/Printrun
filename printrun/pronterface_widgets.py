@@ -274,6 +274,42 @@ class ConfirmCloseDialog(wx.Dialog):
     self.ShowModal()
     self.Destroy()
 
+class ConfirmPLATestDialog(wx.Dialog):
+  """Ask the user if she really wants to print the test object with PLA plastic"""
+
+  def run_the_pla_test(self, event):
+    self.pronterface.do_load("test_object_PLA.gcode")
+    self.pronterface.printfile(None)
+    self.Destroy()
+
+  def __init__(self, pronterface):
+    self.pronterface = pronterface
+
+    wx.Dialog.__init__(self, None, title = _("PLA plastic only!"), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER)
+    title = _("PLA plastic only!")
+    alert_msg = _("Make sure you're using PLA plastic before running this test. The machine won't work properly if you try to print this using any other kind of plastic.")
+    self.sizer = makePageTitle(self, title)
+    alert = wx.StaticText(self, -1, alert_msg)
+    alert.SetFont(wx.Font(12, wx.SWISS, wx.NORMAL, wx.BOLD))
+    alert.Wrap(400)
+    self.sizer.AddWindow(alert, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
+
+
+    buttons = wx.BoxSizer(wx.HORIZONTAL)
+    yes_button = wx.Button(self, label=_("Yes, I am using PLA filament."))
+    yes_button.Bind(wx.EVT_BUTTON, self.run_the_pla_test)
+    buttons.AddWindow(yes_button, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
+
+    cancel_button = wx.Button(self, label=_("Cancel"))
+    cancel_button.Bind(wx.EVT_BUTTON, lambda x: self.Destroy())
+    buttons.AddWindow(cancel_button, 0, wx.ALIGN_CENTRE|wx.ALL, 5)
+
+    self.sizer.AddWindow(buttons, 0, wx.ALIGN_RIGHT|wx.ALL, 5)
+
+    self.Fit()
+    self.ShowModal()
+    self.Destroy()
+
 class MessageToUserDialog(wx.Dialog):
   """Display a remote message to our users"""
   def download(self, event):
