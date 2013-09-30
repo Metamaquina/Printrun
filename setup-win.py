@@ -4,7 +4,7 @@ from distutils.core import setup
 import py2exe
 import os
 
-files = ["README.txt", "test_object.gcode", "test_object.stl", "P-face.ico", ("tools", ["tools\\avrdude.exe", "tools\\avrdude.conf", "tools\\libusb0.dll"])]
+files = ["README.txt", "test_object_PLA.gcode", "test_object.stl", "P-face.ico", ("tools", ["tools\\avrdude.exe", "tools\\avrdude.conf", "tools\\libusb0.dll"])]
 directories = ["images", "profiles", "locale", "Slic3r_windows"]
 
 Mydata_files = files
