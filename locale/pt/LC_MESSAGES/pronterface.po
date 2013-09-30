@@ -237,6 +237,10 @@ msgstr "Cor de fundo do Pronterface (padrão: #FFFFFF)"
 msgid "Printer Interface"
 msgstr "Interface da impressora"
 
+#: pronterface.py:103
+msgid "version"
+msgstr "versão"
+
 #: pronterface.py:122
 msgid "Motors off"
 msgstr "Motores off"
