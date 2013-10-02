@@ -475,6 +475,9 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         self.Bind(wx.EVT_MENU, lambda *e:firmwareupdate(self), m.Append(-1, _("&Firmware update"), _("Firmware update")))
         self.Bind(wx.EVT_MENU, lambda *e:slicingsettings(self), m.Append(-1, _("Slicing Settings"), _(" Adjust slicing settings")))
 
+        self.Bind(wx.EVT_MENU, lambda x: threading.Thread(target = lambda: self.do_skein("set")).start(), m.Append(-1, _("Edit printing profiles"), _("Fine tune printing profiles (advanced)")))
+
+
 	mItem = m.AppendCheckItem(-1, _("Monitor mode"),
             _(" Toggle monitor mode"))
         m.Check(mItem.GetId(), self.monitor)

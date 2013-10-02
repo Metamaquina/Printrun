@@ -1123,10 +1123,10 @@ class pronsole(cmd.Cmd):
         try:
             import shlex
             if(settings):
-#                param = self.expandcommand(self.settings.sliceoptscommand).replace("\\", "\\\\").encode()
-#                print "Entering slicer settings: ", param
-#                subprocess.call(shlex.split(param))
-              SliceSettingsDialog()
+               param = self.expandcommand(self.settings.sliceoptscommand).replace("\\", "\\\\").encode()
+               print "Entering slicer settings: ", param
+               subprocess.call(shlex.split(param))
+
             else:
                 param = self.expandcommand(self.settings.slicecommand).encode()
                 print "Slicing: ", param
