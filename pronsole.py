@@ -150,12 +150,16 @@ class Settings:
         self.xy_feedrate = 3000
         self.z_feedrate = 200
         self.e_feedrate = 100
+
+        #XXX put this in a default configs file
         if _platform == "win32" or _platform == "cygwin":
-            self.slicecommand = "Slic3r_windows/slic3r.exe --load profiles/printer/Metamaquina2.ini --load profiles/print/Padrao.ini --load profiles/filament/PLA.ini --fill-density 0.35 $s --output $o"
-            self.sliceoptscommand = "Slic3r_windows/slic3r.exe"
+            self.slicer_executable = "Slic3r_windows/slic3r.exe"
         else:
-            self.slicecommand = "Slic3r_gnulinux/bin/slic3r --load profiles/printer/Metamaquina2.ini --load profiles/print/Padrao.ini --load profiles/filament/PLA.ini --fill-density 0.35 $s --output $o"
-            self.sliceoptscommand = "Slic3r_gnulinux/bin/slic3r"
+            self.slicer_executable = "Slic3r_gnulinux/bin/slic3r"
+
+        self.slicecommand = "%s --load profiles/printer/Metamaquina2.ini --load profiles/print/Padrao.ini --load profiles/filament/PLA.ini --fill-density 0.35 $s --output $o" % self.slicer_executable
+
+        self.sliceoptscommand = self.slicer_executable + " --datadir profiles"
         self.final_command = ""
         self.print_profile = "Padrao"
         self.printer_profile = "Metamaquina2"
@@ -229,8 +233,9 @@ class pronsole(cmd.Cmd):
         self.helpdict["bedtemp_pla"] = _("Heated Build Platform temp for PLA (default: 60 deg C)")
         self.helpdict["e_feedrate"] = _("Feedrate for Control Panel Moves in Extrusions (default: 100mm/min)")
         self.helpdict["port"] = _("Port used to communicate with printer")
-        self.helpdict["slicecommand"] = _("Slice command\n   default:\n       python skeinforge/skeinforge_application/skeinforge_utilities/skeinforge_craft.py $s)")
-        self.helpdict["sliceoptscommand"] = _("Slice settings command\n   default:\n       python skeinforge/skeinforge_application/skeinforge.py")
+        self.helpdict["slicecommand"] = _("Last used slice command")
+        self.helpdict["sliceoptscommand"] = _("Slice settings command")
+        self.helpdict["slicer_executable"] = _("Path to slicer executable")
         self.helpdict["temperature_abs"] = _("Extruder temp for ABS (default: 230 deg C)")
         self.helpdict["temperature_pla"] = _("Extruder temp for PLA (default: 185 deg C)")
         self.helpdict["xy_feedrate"] = _("Feedrate for Control Panel Moves in X and Y (default: 3000mm/min)")
