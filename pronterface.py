@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Printrun.  If not, see <http://www.gnu.org/licenses/>.
 
-PRONTERFACE_VERSION = "20130930"
+PRONTERFACE_VERSION = "20131001"
 def check_version(msg):
   if msg["equals"] != "":
     return PRONTERFACE_VERSION == msg["equals"]
@@ -121,7 +121,7 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         self.helpdict["bgcolor"] = _("Pronterface background color (default: #FFFFFF)")
         self.filename = filename
         os.putenv("UBUNTU_MENUPROXY", "0")
-        MainWindow.__init__(self, None, title = _("Printer Interface") + " - " + _("version") + " " + PRONTERFACE_VERSION, size = size);
+        MainWindow.__init__(self, None, title = _("Metamaquina") + " - " + _("Printer Interface") + " - " + _("version") + " " + PRONTERFACE_VERSION, size = size);
         self.SetIcon(wx.Icon(pixmapfile("P-face.ico"), wx.BITMAP_TYPE_ICO))
         self.panel = wx.Panel(self,-1, size = size)
 
