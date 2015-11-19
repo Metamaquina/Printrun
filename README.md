@@ -20,6 +20,9 @@ A precompiled version is available at http://koti.kapsi.fi/~kliment/printrun/
 A precompiled version is available at http://koti.kapsi.fi/~kliment/printrun/
 
 ## GNU/Linux
+
+Some distributions require the user to be added to the '''dialout''' group, otherwise access to the USB-Serial port is blocked (resulting in the inability to connect to the printer).
+
 ### Ubuntu/Debian/Trisquel
 
 You can run Printrun directly from source, as there are no packages available yet. Fetch and install the dependencies using
