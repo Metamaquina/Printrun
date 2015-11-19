@@ -19,12 +19,12 @@ A precompiled version is available at http://koti.kapsi.fi/~kliment/printrun/
 
 A precompiled version is available at http://koti.kapsi.fi/~kliment/printrun/
 
-## Linux
-### Ubuntu/Debian
+## GNU/Linux
+### Ubuntu/Debian/Trisquel
 
 You can run Printrun directly from source, as there are no packages available yet. Fetch and install the dependencies using
 
-`sudo apt-get install python-serial python-wxgtk2.8 python-pyglet`
+`sudo apt-get install python-serial python-wxgtk2.8 python-pyglet python-urlgrabber`
 
 ### Fedora 15 and newer
 
@@ -76,7 +76,7 @@ To use pronsole, you need:
 
   * python (ideally 2.6.x or 2.7.x),
   * pyserial (or python-serial on ubuntu/debian) and
-  * pyreadline (not needed on Linux)
+  * pyreadline (not needed on GNU/Linux)
 
 Start pronsole and you will be greeted with a command prompt. Type help to view the available commands.
 All commands have internal help, which you can access by typing "help commandname", for example "help connect"
@@ -108,10 +108,10 @@ To use pronterface, you need:
   * python (ideally 2.6.x or 2.7.x),
   * pyserial (or python-serial on ubuntu/debian),
   * pyglet
-  * pyreadline (not needed on Linux) and
+  * pyreadline (not needed on GNU/Linux) and
   * wxPython
 
-Please see specific instructions for Windows and Mac OS X below. Under Linux, you should use your package manager directly (see the "GETTING PRINTRUN" section)
+Please see specific instructions for Windows and Mac OS X below. Under GNU/Linux, you should use your package manager directly (see the "GETTING PRINTRUN" section)
 
 ## Windows
 
